@@ -2,7 +2,6 @@
     <string name="app_name">Feedback App</string>
 
     <!-- Login activity -->
-    <string name="activity_login_title">Log in</string>
     <string name="activity_login_username_hint">Username</string>
     <string name="activity_login_password_hint">Password</string>
     <string name="activity_login_login_button">Log in</string>
@@ -13,7 +12,12 @@
     <string name="error_field_required">This field is required</string>
 
     <!-- Main activity -->
-    <string name="activity_main_title">Feedback</string>
+    <string name="activity_main_toolbar_title">Surveys</string>
+    <string name="activity_main_powered_by_title">Powered By:</string>
+    <string name="activity_main_neuralbits_title">NeuralBits</string>
+    <!-- Main activity recycler view -->
+    <string name="activity_main_recyclerview_completed">Completed:</string>
+    <string name="activity_main_recyclerview_unsent">Unsent:</string>
     <!-- Main activity menu -->
     <string name="action_send_receive">Send and Receive</string>
     <string name="action_settings">Settings</string>
