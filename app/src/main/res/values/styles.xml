@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="EditText.Login.Style" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/EditText.TextColour</item>
+        <!-- textColorHint not working with TextInputLayout as parent -->
+        <item name="android:textColorHint">@color/EditText.TextColourHint</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <!-- Layout attributes. These will only apply if used directly in view -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="EditText.Login.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Bottom line when not selected / focused -->
+        <item name="colorControlNormal">@color/EditText.Normal</item>
+        <!-- Bottom line when selected / focused -->
+        <item name="colorControlActivated">@color/EditText.Activated</item>
+        <item name="colorControlHighlight">@color/EditText.Activated</item>
+    </style>
+
+    <style name="EditText.TexiInputLayout.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/EditText.TextColourHint</item>
+        <!-- Label color in TRUE state -->
+        <item name="colorControlActivated">@color/EditText.Activated</item>
+    </style>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application fonts directory -->
+    <item name="tw_cen_mt_regular" type="string">fonts/tw_cen_mt_regular.ttf</item>
+    <item name="tw_cen_mt_bold" type="string">fonts/tw_cen_mt_bold.ttf</item>
+</resources>
