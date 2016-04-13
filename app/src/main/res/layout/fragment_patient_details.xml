@@ -205,17 +205,17 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_bed"
+                android:id="@+id/input_layout_bed_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:theme="@style/EditText.TexiInputLayout.Theme">
 
                 <EditText
-                    android:id="@+id/bed"
+                    android:id="@+id/bed_no"
                     style="@style/EditText.Style"
                     android:hint="@string/fragment_patient_details_bed_no_hint"
-                    android:inputType="text" />
+                    android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
 

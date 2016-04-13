@@ -18,11 +18,11 @@ public class PatientIpnoFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_patient_ipno, container, false);
 
-        TextInputLayout input_layout_ipno = (TextInputLayout) view.findViewById(R.id.input_layout_ipno);
+        TextInputLayout inputLayoutIpno = (TextInputLayout) view.findViewById(R.id.input_layout_ipno);
         EditText ipno = (EditText) view.findViewById(R.id.ipno);
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
-        input_layout_ipno.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
+        inputLayoutIpno.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
         ipno.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
         nextButton.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, getActivity().getApplicationContext()));
 
