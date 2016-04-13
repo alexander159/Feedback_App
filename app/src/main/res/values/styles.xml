@@ -48,7 +48,7 @@
 
     <style name="CheckBoxCustomStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:textColor">@color/grey</item>
-        <item name="android:button">@drawable/checkbox_custom_states</item>
+        <item name="android:button">@drawable/checkbox_bg</item>
         <item name="android:paddingLeft">7dp</item>
         <item name="android:textSize">8pt</item>
     </style>
