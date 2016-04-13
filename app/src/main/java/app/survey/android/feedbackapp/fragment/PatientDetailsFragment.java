@@ -17,32 +17,47 @@ import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.util.FontManager;
 
 public class PatientDetailsFragment extends Fragment {
+
+    private EditText name;
+    private EditText age;
+    private EditText ipno;
+    private EditText email;
+    private CheckBox cameAsPatientCheck;
+    private CheckBox cameAsRelativeCheck;
+    private CheckBox cameAsVisitorCheck;
+    private CheckBox sexMaleCheck;
+    private CheckBox sexFemaleCheck;
+    private CheckBox sexOthersCheck;
+    private EditText phone;
+    private EditText ward;
+    private EditText bedNo;
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_patient_details, container, false);
 
         TextInputLayout inputLayoutName = (TextInputLayout) view.findViewById(R.id.input_layout_name);
-        EditText name = (EditText) view.findViewById(R.id.name);
+        name = (EditText) view.findViewById(R.id.name);
         TextInputLayout inputLayoutAge = (TextInputLayout) view.findViewById(R.id.input_layout_age);
-        EditText age = (EditText) view.findViewById(R.id.age);
+        age = (EditText) view.findViewById(R.id.age);
         TextInputLayout inputLayoutIpno = (TextInputLayout) view.findViewById(R.id.input_layout_ipno);
-        EditText ipno = (EditText) view.findViewById(R.id.ipno);
+        ipno = (EditText) view.findViewById(R.id.ipno);
         TextInputLayout inputLayoutEmail = (TextInputLayout) view.findViewById(R.id.input_layout_email);
-        EditText email = (EditText) view.findViewById(R.id.email);
+        email = (EditText) view.findViewById(R.id.email);
         TextView cameAsTitle = (TextView) view.findViewById(R.id.came_as_title);
-        final CheckBox cameAsPatientCheck = (CheckBox) view.findViewById(R.id.came_as_patient_check);
-        final CheckBox cameAsRelativeCheck = (CheckBox) view.findViewById(R.id.came_as_relative_check);
-        final CheckBox cameAsVisitorCheck = (CheckBox) view.findViewById(R.id.came_as_visitor_check);
+        cameAsPatientCheck = (CheckBox) view.findViewById(R.id.came_as_patient_check);
+        cameAsRelativeCheck = (CheckBox) view.findViewById(R.id.came_as_relative_check);
+        cameAsVisitorCheck = (CheckBox) view.findViewById(R.id.came_as_visitor_check);
         TextView sexTitle = (TextView) view.findViewById(R.id.sex_title);
-        final CheckBox sexMaleCheck = (CheckBox) view.findViewById(R.id.sex_male_check);
-        final CheckBox sexFemaleCheck = (CheckBox) view.findViewById(R.id.sex_female_check);
-        final CheckBox sexOthersCheck = (CheckBox) view.findViewById(R.id.sex_others_check);
+        sexMaleCheck = (CheckBox) view.findViewById(R.id.sex_male_check);
+        sexFemaleCheck = (CheckBox) view.findViewById(R.id.sex_female_check);
+        sexOthersCheck = (CheckBox) view.findViewById(R.id.sex_others_check);
         TextInputLayout inputLayoutPhone = (TextInputLayout) view.findViewById(R.id.input_layout_phone);
-        EditText phone = (EditText) view.findViewById(R.id.phone);
+        phone = (EditText) view.findViewById(R.id.phone);
         TextInputLayout inputLayoutWard = (TextInputLayout) view.findViewById(R.id.input_layout_ward);
-        EditText ward = (EditText) view.findViewById(R.id.ward);
+        ward = (EditText) view.findViewById(R.id.ward);
         TextInputLayout inputLayoutBedNo = (TextInputLayout) view.findViewById(R.id.input_layout_bed_no);
-        EditText bedNo = (EditText) view.findViewById(R.id.bed_no);
+        bedNo = (EditText) view.findViewById(R.id.bed_no);
 
         inputLayoutName.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
         name.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
@@ -121,17 +136,34 @@ public class PatientDetailsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                            }
-                        })
-                        .setActionTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.colorPrimaryLight))
-                        .show();
+                if (isAnyFieldEmpty()) {
+                    Snackbar.make(view, R.string.fragment_patient_details_empty_fields_snackbar, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.fragment_patient_details_close_button_snackbar, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //shackbar closes itself on press by default
+                                }
+                            })
+                            .setActionTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.colorPrimaryLight))
+                            .show();
+                } else {
+                    //TODO move to survey
+                }
             }
         });
 
         return view;
+    }
+
+    private boolean isAnyFieldEmpty() {
+        return name.getText().toString().trim().isEmpty() ||
+                age.getText().toString().trim().isEmpty() ||
+                ipno.getText().toString().trim().isEmpty() ||
+                email.getText().toString().trim().isEmpty() ||
+                phone.getText().toString().trim().isEmpty() ||
+                ward.getText().toString().trim().isEmpty() ||
+                bedNo.getText().toString().trim().isEmpty() ||
+                (!cameAsPatientCheck.isChecked() && !cameAsRelativeCheck.isChecked() && !cameAsVisitorCheck.isChecked()) ||
+                (!sexMaleCheck.isChecked() && !sexFemaleCheck.isChecked() && !sexOthersCheck.isChecked());
     }
 }

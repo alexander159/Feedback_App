@@ -49,5 +49,7 @@
     <string name="fragment_patient_details_phone_hint">Phone</string>
     <string name="fragment_patient_details_ward_hint">Ward No/Name</string>
     <string name="fragment_patient_details_bed_no_hint">Bed No</string>
+    <string name="fragment_patient_details_empty_fields_snackbar">Some fields are emty</string>
+    <string name="fragment_patient_details_close_button_snackbar">Close</string>
 
 </resources>
