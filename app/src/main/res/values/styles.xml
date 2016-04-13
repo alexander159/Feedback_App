@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="EditText.Login.Style" parent="Widget.AppCompat.EditText">
+    <style name="EditText.Style" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/EditText.TextColour</item>
         <!-- textColorHint not working with TextInputLayout as parent -->
         <item name="android:textColorHint">@color/EditText.TextColourHint</item>
@@ -27,9 +27,11 @@
         <!-- Layout attributes. These will only apply if used directly in view -->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
+        <!-- theme for bottom line color -->
+        <item name="android:theme">@style/EditText.Theme</item>
     </style>
 
-    <style name="EditText.Login.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="EditText.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Bottom line when not selected / focused -->
         <item name="colorControlNormal">@color/EditText.Normal</item>
         <!-- Bottom line when selected / focused -->
@@ -42,6 +44,24 @@
         <item name="android:textColorHint">@color/EditText.TextColourHint</item>
         <!-- Label color in TRUE state -->
         <item name="colorControlActivated">@color/EditText.Activated</item>
+    </style>
+
+    <style name="CheckBoxCustomStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:button">@drawable/checkbox_custom_states</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:textSize">8pt</item>
+    </style>
+
+    <style name="SubmitButton.Green" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/green_button_bg</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:singleLine">true</item>
     </style>
 
 </resources>

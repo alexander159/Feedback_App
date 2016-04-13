@@ -1,5 +1,6 @@
 package app.survey.android.feedbackapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,9 +16,11 @@ import java.util.ArrayList;
 import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.adapter.MainSurveyRecyclerViewAdapter;
 import app.survey.android.feedbackapp.model.MainSurvey;
+import app.survey.android.feedbackapp.responder.MainSurveyRecyclerViewResponder;
 import app.survey.android.feedbackapp.util.FontManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MainSurveyRecyclerViewResponder {
 
     private RecyclerView surveyRecyclerView;
 
@@ -83,5 +86,13 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSurveySelected() {
+        Intent loginIntent = new Intent(MainActivity.this, PatientDataActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        overridePendingTransition(0, 0);
     }
 }

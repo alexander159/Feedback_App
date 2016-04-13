@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1976d2</color>
-    <color name="colorPrimaryDark">#1565c0</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#4CAF50</color>
 
     <color name="white">@android:color/white</color>
     <color name="grey">#bdbdbd</color>
     <color name="darkgrey">#757575</color>
     <color name="black">@android:color/black</color>
-    <color name="green">#4caf50</color>
+    <color name="green">#4CAF50</color>
+    <color name="darkgreen">#388e3c</color>
 
-    <color name="EditText.TextColour">@color/black</color>
+    <color name="EditText.TextColour">@color/Text.PrimaryColor</color>
     <color name="EditText.TextColourHint">@color/grey</color>
-    <color name="EditText.Activated">@color/colorPrimary</color>
+    <color name="EditText.Activated">@color/colorPrimaryDark</color>
     <color name="EditText.Normal">@color/grey</color>
+
+    <color name="Text.PrimaryColor">#212121</color>
+    <color name="Text.PrimaryColorLight">#C5CAE9</color>
+    <color name="Text.SecondaryColor">#757575</color>
+    <color name="Divider.Color">#B6B6B6</color>
 
 </resources>

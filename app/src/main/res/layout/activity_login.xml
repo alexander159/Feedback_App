@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
@@ -17,13 +18,6 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
     </android.support.design.widget.AppBarLayout>
-
-    <!-- Dummy item to prevent EditText from receiving focus -->
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -52,10 +46,9 @@
 
             <EditText
                 android:id="@+id/username"
-                style="@style/EditText.Login.Style"
+                style="@style/EditText.Style"
                 android:hint="@string/activity_login_username_hint"
-                android:inputType="textPersonName"
-                android:theme="@style/EditText.Login.Theme" />
+                android:inputType="textEmailAddress" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -69,10 +62,9 @@
 
             <EditText
                 android:id="@+id/password"
-                style="@style/EditText.Login.Style"
+                style="@style/EditText.Style"
                 android:hint="@string/activity_login_password_hint"
-                android:inputType="textPassword"
-                android:theme="@style/EditText.Login.Theme" />
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -85,9 +77,9 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="@string/activity_login_login_button"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

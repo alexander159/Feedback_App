@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.model.MainSurvey;
+import app.survey.android.feedbackapp.responder.MainSurveyRecyclerViewResponder;
 import app.survey.android.feedbackapp.util.FontManager;
 
 public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurveyRecyclerViewAdapter.MainSurveyViewHolder> {
@@ -46,6 +48,14 @@ public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurv
         holder.unsentTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
         holder.unsentValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
 
+        holder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainSurveyRecyclerViewResponder responder = (MainSurveyRecyclerViewResponder) context;
+                responder.onSurveySelected();
+            }
+        });
+
         holder.divider.setVisibility((position == mainSurveys.size() - 1) ? View.GONE : View.VISIBLE);
     }
 
@@ -55,6 +65,7 @@ public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurv
     }
 
     public static class MainSurveyViewHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout itemParentLayout;
         private ImageView surveyIcon;
         private TextView surveyTitle;
         private TextView completedTitle;
@@ -67,6 +78,7 @@ public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurv
         public MainSurveyViewHolder(View itemView) {
             super(itemView);
 
+            itemParentLayout = (RelativeLayout) itemView.findViewById(R.id.item_parent_layout);
             surveyIcon = (ImageView) itemView.findViewById(R.id.survey_icon);
             surveyTitle = (TextView) itemView.findViewById(R.id.survey_title);
             completedTitle = (TextView) itemView.findViewById(R.id.completed_title);
@@ -74,7 +86,7 @@ public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurv
             unsentTitle = (TextView) itemView.findViewById(R.id.unsent_title);
             unsentValue = (TextView) itemView.findViewById(R.id.unsent_value);
             infoIcon = (ImageView) itemView.findViewById(R.id.info_icon);
-            divider = (View) itemView.findViewById(R.id.divider);
+            divider = itemView.findViewById(R.id.divider);
         }
     }
 }
