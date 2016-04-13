@@ -106,7 +106,7 @@
                     android:id="@+id/came_as_patient_check"
                     style="@style/CheckBoxCustomStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:text="@string/fragment_patient_details_came_as_patient_hint" />
@@ -115,7 +115,7 @@
                     android:id="@+id/came_as_relative_check"
                     style="@style/CheckBoxCustomStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
                     android:text="@string/fragment_patient_details_came_as_relative_hint" />
 
@@ -123,7 +123,7 @@
                     android:id="@+id/came_as_visitor_check"
                     style="@style/CheckBoxCustomStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/fragment_patient_details_came_as_visitor_hint" />
@@ -150,7 +150,7 @@
                     android:id="@+id/sex_male_check"
                     style="@style/CheckBoxCustomStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:text="@string/fragment_patient_details_sex_male_hint" />
@@ -159,7 +159,7 @@
                     android:id="@+id/sex_female_check"
                     style="@style/CheckBoxCustomStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
                     android:text="@string/fragment_patient_details_sex_female_hint" />
 
@@ -167,7 +167,7 @@
                     android:id="@+id/sex_others_check"
                     style="@style/CheckBoxCustomStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/fragment_patient_details_sex_others_hint" />

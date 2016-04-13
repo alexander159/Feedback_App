@@ -2,6 +2,9 @@ package app.survey.android.feedbackapp.util;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import app.survey.android.feedbackapp.R;
 
@@ -19,10 +22,10 @@ public class FontManager {
     }
 
     public static synchronized FontManager getInstance() {
-        if (FontManager.mInstance == null) {
-            FontManager.mInstance = new FontManager();
+        if (mInstance == null) {
+            mInstance = new FontManager();
         }
-        return FontManager.mInstance;
+        return mInstance;
     }
 
     public static synchronized Typeface getFont(Fonts fontType, Context context) {
@@ -42,7 +45,19 @@ public class FontManager {
         }
     }
 
-    public static enum Fonts {
+    public static void replaceFonts(ViewGroup viewTree, Typeface typeface) {
+        View child;
+        for (int i = 0; i < viewTree.getChildCount(); ++i) {
+            child = viewTree.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                replaceFonts((ViewGroup) child, typeface);
+            } else if (child instanceof TextView) {
+                ((TextView) child).setTypeface(typeface);
+            }
+        }
+    }
+
+    public enum Fonts {
         TW_CENT_MT_BOLD,
         TW_CENT_MT_REGULAR
     }
