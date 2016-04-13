@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -15,8 +17,9 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/circle"
         android:padding="9dp"
-        android:src="@drawable/ic_barchart"
-        android:tint="@color/white" />
+        android:tint="@color/white"
+        app:srcCompat="@drawable/ic_barchart"
+        tools:src="@drawable/ic_barchart" />
 
     <LinearLayout
         android:id="@+id/title_container"
@@ -97,8 +100,9 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:src="@drawable/ic_info"
-        android:tint="@color/grey" />
+        android:tint="@color/grey"
+        app:srcCompat="@drawable/ic_info"
+        tools:src="@drawable/ic_info" />
 
     <View
         android:id="@+id/divider"
