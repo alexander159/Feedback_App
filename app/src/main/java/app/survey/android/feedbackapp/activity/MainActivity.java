@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSurveySelected() {
-        Intent loginIntent = new Intent(MainActivity.this, PatientDataActivity.class);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
+        Intent patientDataIntent = new Intent(MainActivity.this, PatientDataActivity.class);
+        patientDataIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(patientDataIntent);
         overridePendingTransition(0, 0);
     }
 }

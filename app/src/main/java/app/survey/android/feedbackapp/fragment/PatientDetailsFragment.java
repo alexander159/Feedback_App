@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import app.survey.android.feedbackapp.R;
+import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
 import app.survey.android.feedbackapp.util.FontManager;
 
 public class PatientDetailsFragment extends Fragment {
@@ -147,7 +148,9 @@ public class PatientDetailsFragment extends Fragment {
                             .setActionTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.colorPrimaryLight))
                             .show();
                 } else {
-                    //TODO move to survey
+                    //move to the selected survey
+                    PatientDetailsFragmentResponder responder = (PatientDetailsFragmentResponder) getActivity();
+                    responder.onDonePatientDetailsButtonPressed();
                 }
             }
         });
