@@ -6,24 +6,20 @@
         android:id="@+id/action_send_receive"
         android:orderInCategory="100"
         android:title="@string/action_send_receive"
-        android:icon="@drawable/ic_send"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="200"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_help"
         android:orderInCategory="300"
         android:title="@string/action_help"
-        android:icon="@drawable/ic_help"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="400"
         android:title="@string/action_logout"
-        android:icon="@drawable/ic_logout"
         app:showAsAction="never" />
 </menu>

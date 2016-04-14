@@ -53,7 +53,8 @@
                         android:id="@+id/age"
                         style="@style/EditText"
                         android:hint="@string/fragment_patient_details_age_hint"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/ipno" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +69,8 @@
                         android:id="@+id/ipno"
                         style="@style/EditText"
                         android:hint="@string/fragment_patient_details_ipno_hint"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:nextFocusDown="@+id/email" />
 
                 </android.support.design.widget.TextInputLayout>
 
