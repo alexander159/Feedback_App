@@ -34,7 +34,7 @@
             android:gravity="center"
             android:text="0"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <SeekBar
             android:id="@+id/seekbar"
