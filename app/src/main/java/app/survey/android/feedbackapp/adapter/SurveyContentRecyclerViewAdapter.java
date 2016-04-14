@@ -1,13 +1,16 @@
 package app.survey.android.feedbackapp.adapter;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -204,6 +207,26 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             }
             case SURVEY_ITEM_COMMENT: {
                 ((SurveyItemCommentViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
+                ((SurveyItemCommentViewHolder) holder).comment.setText(((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).getComment());
+
+                ((SurveyItemCommentViewHolder) holder).comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        //hide soft keyboard
+                        ((SurveyItemCommentViewHolder) holder).comment.clearFocus();
+                        try {
+                            InputMethodManager inputMethodManager = (InputMethodManager) ((SurveyItemCommentViewHolder) holder).comment.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(((SurveyItemCommentViewHolder) holder).comment.getWindowToken(), 0);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        //save state
+                        ((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).setComment(((SurveyItemCommentViewHolder) holder).comment.getText().toString());
+                        notifyDataSetChanged();
+
+                        return true;
+                    }
+                });
 
                 ((SurveyItemCommentViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemCommentViewHolder) holder).comment.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
