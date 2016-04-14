@@ -1,5 +1,6 @@
 package app.survey.android.feedbackapp.adapter;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,8 @@ import com.whinc.widget.ratingbar.RatingBar;
 import java.util.ArrayList;
 
 import app.survey.android.feedbackapp.R;
+import app.survey.android.feedbackapp.fragment.DialogFragmentSpinnerItems;
+import app.survey.android.feedbackapp.fragment.SurveyContentFragment;
 import app.survey.android.feedbackapp.model.SurveyItem;
 import app.survey.android.feedbackapp.model.SurveyItemComment;
 import app.survey.android.feedbackapp.model.SurveyItemSeekbar;
@@ -33,11 +36,13 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
     public static final int SURVEY_ITEM_SEEKBAR = 3;
     public static final int SURVEY_ITEM_COMMENT = 4;
 
+    private SurveyContentFragment parentFragment;
     private Context context;
     private ArrayList<SurveyItem> surveyQuestions;
 
-    public SurveyContentRecyclerViewAdapter(Context context, ArrayList<SurveyItem> surveyQuestions) {
-        this.context = context;
+    public SurveyContentRecyclerViewAdapter(SurveyContentFragment parentFragment, ArrayList<SurveyItem> surveyQuestions) {
+        this.parentFragment = parentFragment;
+        this.context = parentFragment.getActivity().getApplicationContext();
         this.surveyQuestions = surveyQuestions;
     }
 
@@ -78,7 +83,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        SurveyItem item = surveyQuestions.get(position);
+        final SurveyItem item = surveyQuestions.get(position);
 
         switch (getItemViewType(position)) {
             case SURVEY_ITEM_SPINNER: {
@@ -86,6 +91,11 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSpinnerViewHolder) holder).tapSelectContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //call fragment
+                        FragmentManager fragmentManager = parentFragment.getFragmentManager();
+                        DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) item).getItems());
+                        dFragment.show(fragmentManager, "DialogFragmentSpinnerItems");
+
                         ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
                     }
                 });

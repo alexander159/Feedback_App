@@ -48,6 +48,24 @@ public class SurveyContentFragment extends Fragment {
                         add("Value4");
                         add("Value5");
                         add("Value6");
+                        add("Value7");
+                        add("Value8");
+                        add("Value9");
+                        add("Value10");
+                        add("Value11");
+                        add("Value12");
+                        add("Value1");
+                        add("Value2");
+                        add("Value3");
+                        add("Value4");
+                        add("Value5");
+                        add("Value6");
+                        add("Value7");
+                        add("Value8");
+                        add("Value9");
+                        add("Value10");
+                        add("Value11");
+                        add("Value12");
                     }}
             ));
             add(new SurveyItemComment(getResources().getString(R.string.fragment_survey_content_placeholder), ""));
@@ -66,12 +84,18 @@ public class SurveyContentFragment extends Fragment {
                         add("Value4");
                         add("Value5");
                         add("Value6");
+                        add("Value7");
+                        add("Value8");
+                        add("Value9");
+                        add("Value10");
+                        add("Value11");
+                        add("Value12");
                     }}
             ));
             add(new SurveyItemSeekbar(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
         }};
 
-        SurveyContentRecyclerViewAdapter adapter = new SurveyContentRecyclerViewAdapter(getActivity().getApplicationContext(), surveyQuestions);
+        SurveyContentRecyclerViewAdapter adapter = new SurveyContentRecyclerViewAdapter(this, surveyQuestions);
         surveyContentRecyclerView.setAdapter(adapter);
         surveyContentRecyclerView.setItemAnimator(new DefaultItemAnimator());
         surveyContentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
