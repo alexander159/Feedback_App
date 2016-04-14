@@ -33,7 +33,7 @@ public class PatientDataActivity extends AppCompatActivity
 
         selectedSurvey = (MainSurvey) getIntent().getSerializableExtra(SurveyActivity.SURVEY);
 
-        setNextActiveFragment(new PatientTypeFragment());
+        setNextActiveFragment(new PatientTypeFragment(), false);
     }
 
     private void changeToolbarTitle(String title) {
@@ -46,31 +46,39 @@ public class PatientDataActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("ResourceType")
-    private void setNextActiveFragment(Fragment fragment) {
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+    private void setNextActiveFragment(Fragment fragment, boolean addToBackStack) {
+        if (addToBackStack) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 
     @Override
     public void onAddNewPatientPressed() {
         changeToolbarTitle(getResources().getString(R.string.fragment_patient_details_toolbar_title));
-        setNextActiveFragment(new PatientDetailsFragment());
+        setNextActiveFragment(new PatientDetailsFragment(), true);
     }
 
     @Override
     public void onUseExistingPatientPressed() {
         changeToolbarTitle("");
-        setNextActiveFragment(new PatientIpnoFragment());
+        setNextActiveFragment(new PatientIpnoFragment(), true);
     }
 
     @Override
     public void onNextPatientIpnoPressed() {
         changeToolbarTitle(getResources().getString(R.string.fragment_patient_details_toolbar_title));
-        setNextActiveFragment(new PatientDetailsFragment());
+        setNextActiveFragment(new PatientDetailsFragment(), true);
     }
 
     @Override

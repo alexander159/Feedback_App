@@ -37,17 +37,25 @@ public class SurveyActivity extends AppCompatActivity {
         categoryTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getApplicationContext()));
         categoryValueTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, getApplicationContext()));
 
-        setNextActiveFragment(new SurveyContentFragment());
+        setNextActiveFragment(new SurveyContentFragment(), false);
     }
 
     @SuppressWarnings("ResourceType")
-    private void setNextActiveFragment(Fragment fragment) {
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
-                .replace(R.id.survey_fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+    private void setNextActiveFragment(Fragment fragment, boolean addToBackStack) {
+        if (addToBackStack) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
+                    .replace(R.id.survey_fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
+                    .replace(R.id.survey_fragment_container, fragment)
+                    .commit();
+        }
     }
 
     @Override
