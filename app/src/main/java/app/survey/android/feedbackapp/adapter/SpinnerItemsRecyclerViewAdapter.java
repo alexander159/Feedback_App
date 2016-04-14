@@ -12,13 +12,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.survey.android.feedbackapp.R;
+import app.survey.android.feedbackapp.model.SurveyItemSpinner;
 import app.survey.android.feedbackapp.util.FontManager;
 
 public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<SpinnerItemsRecyclerViewAdapter.ItemViewHolder> {
 
     private Context context;
     private ArrayList<String> items;
-    private int pressedPosition = -1;
+    private int pressedPosition = SurveyItemSpinner.NOTHING_SELECTED;
 
     public SpinnerItemsRecyclerViewAdapter(Context context, ArrayList<String> items) {
         this.context = context;
@@ -63,12 +64,16 @@ public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<Spinne
     }
 
     public void deselectAll() {
-        pressedPosition = -1;
+        pressedPosition = SurveyItemSpinner.NOTHING_SELECTED;
         notifyDataSetChanged();
     }
 
     public String getSelectedItem() {
-        return (pressedPosition == -1) ? null : items.get(pressedPosition);
+        return (pressedPosition == SurveyItemSpinner.NOTHING_SELECTED) ? null : items.get(pressedPosition);
+    }
+
+    public int getSelectedPos() {
+        return pressedPosition;
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {

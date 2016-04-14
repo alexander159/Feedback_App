@@ -45,7 +45,8 @@ public class SurveyContentFragment extends Fragment {
                         add("Value1");
                         add("Value2");
                         add("Value3");
-                    }}
+                    }},
+                    SurveyItemSpinner.NOTHING_SELECTED
             ));
             add(new SurveyItemComment(getResources().getString(R.string.fragment_survey_content_placeholder), ""));
             add(new SurveyItemStarRate(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
@@ -61,7 +62,8 @@ public class SurveyContentFragment extends Fragment {
                         add("Value5");
                         add("Value6");
                         add("Value7");
-                    }}
+                    }},
+                    SurveyItemSpinner.NOTHING_SELECTED
             ));
             add(new SurveyItemYesNo(getResources().getString(R.string.fragment_survey_content_placeholder), false, false));
             add(new SurveyItemStarRate(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
@@ -88,7 +90,8 @@ public class SurveyContentFragment extends Fragment {
                         add("Value17");
                         add("Value18");
                         add("Value19");
-                    }}
+                    }},
+                    SurveyItemSpinner.NOTHING_SELECTED
             ));
             add(new SurveyItemSeekbar(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
         }};

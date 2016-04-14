@@ -3,11 +3,15 @@ package app.survey.android.feedbackapp.model;
 import java.util.ArrayList;
 
 public class SurveyItemSpinner extends SurveyItem {
-    private ArrayList<String> items;
+    public static final int NOTHING_SELECTED = -1;
 
-    public SurveyItemSpinner(String question, ArrayList<String> items) {
+    private ArrayList<String> items;
+    private int selectedPos;
+
+    public SurveyItemSpinner(String question, ArrayList<String> items, int selectedPos) {
         this.question = question;
         this.items = items;
+        this.selectedPos = selectedPos;
     }
 
     public ArrayList<String> getItems() {
@@ -16,5 +20,13 @@ public class SurveyItemSpinner extends SurveyItem {
 
     public void addItem(String item) {
         items.add(item);
+    }
+
+    public int getSelectedPos() {
+        return selectedPos;
+    }
+
+    public void setSelectedPos(int selectedPos) {
+        this.selectedPos = selectedPos;
     }
 }

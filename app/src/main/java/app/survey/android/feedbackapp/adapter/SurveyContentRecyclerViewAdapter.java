@@ -88,6 +88,14 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
         switch (getItemViewType(position)) {
             case SURVEY_ITEM_SPINNER: {
                 ((SurveyItemSpinnerViewHolder) holder).question.setText(item.getQuestion());
+                if (((SurveyItemSpinner) item).getSelectedPos() == SurveyItemSpinner.NOTHING_SELECTED) {
+                    ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(context.getResources().getString(R.string.fragment_survey_content_spinner_tap_select));
+                    ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.grey));
+                } else {
+                    ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(((SurveyItemSpinner) item).getItems().get(((SurveyItemSpinner) item).getSelectedPos()));
+                    ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
+                }
+
                 ((SurveyItemSpinnerViewHolder) holder).tapSelectContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -95,9 +103,9 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                         DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) item).getItems());
                         dFragment.setSelectionListener(new DialogFragmentSpinnerItems.DialogFragmentSpinnerItemsListener() {
                             @Override
-                            public void onItemSelected(String item) {
-                                ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
-                                ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(item);
+                            public void onItemSelected(String stribgValue, int position) {
+                                ((SurveyItemSpinner) item).setSelectedPos(position);
+                                notifyDataSetChanged();
                             }
                         });
                         dFragment.show(fragmentManager, "DialogFragmentSpinnerItems");

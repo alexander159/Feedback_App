@@ -76,7 +76,7 @@ public class DialogFragmentSpinnerItems extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null && adapter.getSelectedItem() != null) {
-                    mListener.onItemSelected(adapter.getSelectedItem());
+                    mListener.onItemSelected(adapter.getSelectedItem(), adapter.getSelectedPos());
                     dismiss();
                 }
             }
@@ -90,7 +90,7 @@ public class DialogFragmentSpinnerItems extends DialogFragment {
     }
 
     public interface DialogFragmentSpinnerItemsListener {
-        void onItemSelected(String item);
+        void onItemSelected(String item, int position);
     }
 
 }
