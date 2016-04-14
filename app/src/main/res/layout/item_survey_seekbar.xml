@@ -16,7 +16,7 @@
         android:singleLine="false"
         android:text="1. Sample text"
         android:textColor="@color/darkgrey"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="50"
+            android:text="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:max="100"
-            android:progress="50"
+            android:progress="0"
             android:theme="@style/SeekBar.Blue" />
 
         <LinearLayout

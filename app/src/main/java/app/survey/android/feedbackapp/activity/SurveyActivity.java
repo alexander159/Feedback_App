@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import app.survey.android.feedbackapp.R;
+import app.survey.android.feedbackapp.fragment.SurveyContentFragment;
 import app.survey.android.feedbackapp.model.MainSurvey;
 import app.survey.android.feedbackapp.util.FontManager;
 
@@ -35,6 +36,8 @@ public class SurveyActivity extends AppCompatActivity {
 
         categoryTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getApplicationContext()));
         categoryValueTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, getApplicationContext()));
+
+        setNextActiveFragment(new SurveyContentFragment());
     }
 
     @SuppressWarnings("ResourceType")

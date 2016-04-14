@@ -77,6 +77,7 @@ public class PatientDataActivity extends AppCompatActivity
     public void onDonePatientDetailsButtonPressed() {
         Intent surveyIntent = new Intent(PatientDataActivity.this, SurveyActivity.class);
         surveyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        surveyIntent.putExtra(SurveyActivity.SURVEY, selectedSurvey);
         startActivity(surveyIntent);
         overridePendingTransition(0, 0);
     }

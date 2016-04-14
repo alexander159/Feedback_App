@@ -18,9 +18,10 @@
         android:singleLine="false"
         android:text="1. Position"
         android:textColor="@color/darkgrey"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <LinearLayout
+        android:id="@+id/tap_select_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/question"
@@ -30,6 +31,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/tap_select_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
@@ -38,6 +40,7 @@
             tools:src="@drawable/ic_list" />
 
         <TextView
+            android:id="@+id/tap_select_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -45,7 +48,7 @@
             android:layout_marginStart="20sp"
             android:text="@string/fragment_survey_content_spinner_tap_select"
             android:textColor="@color/grey"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
