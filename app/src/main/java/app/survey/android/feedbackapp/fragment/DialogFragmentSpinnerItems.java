@@ -20,11 +20,11 @@ import app.survey.android.feedbackapp.util.FontManager;
  * Use the {@link DialogFragmentSpinnerItems#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DialogFragmentSpinnerItems extends DialogFragment
-        implements SpinnerItemsRecyclerViewAdapter.SpinnerItemsRecyclerViewResponder {
+public class DialogFragmentSpinnerItems extends DialogFragment {
 
     private static final String ITEMS_LIST = "itemsList";
     private ArrayList<String> items;
+    private DialogFragmentSpinnerItemsListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -60,7 +60,7 @@ public class DialogFragmentSpinnerItems extends DialogFragment
         resetButton.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, getActivity().getApplicationContext()));
         doneButton.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, getActivity().getApplicationContext()));
 
-        final SpinnerItemsRecyclerViewAdapter adapter = new SpinnerItemsRecyclerViewAdapter(this, items);
+        final SpinnerItemsRecyclerViewAdapter adapter = new SpinnerItemsRecyclerViewAdapter(getActivity().getApplicationContext(), items);
         spinnerRecyclerView.setAdapter(adapter);
         spinnerRecyclerView.setItemAnimator(new DefaultItemAnimator());
         spinnerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -75,15 +75,22 @@ public class DialogFragmentSpinnerItems extends DialogFragment
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                if (mListener != null && adapter.getSelectedItem() != null) {
+                    mListener.onItemSelected(adapter.getSelectedItem());
+                    dismiss();
+                }
             }
         });
 
         return rootView;
     }
 
-    @Override
-    public void onItemSelected(String title) {
-
+    public void setSelectionListener(DialogFragmentSpinnerItemsListener listener) {
+        mListener = listener;
     }
+
+    public interface DialogFragmentSpinnerItemsListener {
+        void onItemSelected(String item);
+    }
+
 }

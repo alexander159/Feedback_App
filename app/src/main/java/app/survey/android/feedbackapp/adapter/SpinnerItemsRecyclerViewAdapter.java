@@ -1,5 +1,6 @@
 package app.survey.android.feedbackapp.adapter;
 
+import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,17 +12,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.survey.android.feedbackapp.R;
-import app.survey.android.feedbackapp.fragment.DialogFragmentSpinnerItems;
 import app.survey.android.feedbackapp.util.FontManager;
 
 public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<SpinnerItemsRecyclerViewAdapter.ItemViewHolder> {
 
-    private DialogFragmentSpinnerItems parentFragment;
+    private Context context;
     private ArrayList<String> items;
     private int pressedPosition = -1;
 
-    public SpinnerItemsRecyclerViewAdapter(DialogFragmentSpinnerItems parentFragment, ArrayList<String> items) {
-        this.parentFragment = parentFragment;
+    public SpinnerItemsRecyclerViewAdapter(Context context, ArrayList<String> items) {
+        this.context = context;
         this.items = items;
     }
 
@@ -36,16 +36,16 @@ public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<Spinne
 
         holder.title.setText(item);
 
-        holder.title.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, parentFragment.getActivity().getApplicationContext()));
+        holder.title.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
 
         //Determine which tile still has pressed color and reset it
         if (pressedPosition != position &&
-                holder.title.getCurrentTextColor() == ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.white)) {
-            holder.titleContainer.setBackgroundColor(ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.white));
-            holder.title.setTextColor(ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.darkgrey));
+                holder.title.getCurrentTextColor() == ContextCompat.getColor(context, R.color.white)) {
+            holder.titleContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            holder.title.setTextColor(ContextCompat.getColor(context, R.color.darkgrey));
         } else if (pressedPosition == position) {
-            holder.titleContainer.setBackgroundColor(ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.colorPrimaryLight));
-            holder.title.setTextColor(ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.white));
+            holder.titleContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
+            holder.title.setTextColor(ContextCompat.getColor(context, R.color.white));
         }
 
         holder.titleContainer.setOnClickListener(new View.OnClickListener() {
@@ -53,9 +53,6 @@ public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<Spinne
             public void onClick(View v) {
                 pressedPosition = holder.getAdapterPosition();
                 notifyDataSetChanged();
-
-                SpinnerItemsRecyclerViewResponder responder = (SpinnerItemsRecyclerViewResponder) parentFragment;
-                responder.onItemSelected(item);
             }
         });
     }
@@ -70,8 +67,8 @@ public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<Spinne
         notifyDataSetChanged();
     }
 
-    public interface SpinnerItemsRecyclerViewResponder {
-        void onItemSelected(String title);
+    public String getSelectedItem() {
+        return (pressedPosition == -1) ? null : items.get(pressedPosition);
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {

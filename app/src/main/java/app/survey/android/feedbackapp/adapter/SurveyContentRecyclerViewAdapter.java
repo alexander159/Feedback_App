@@ -91,12 +91,16 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSpinnerViewHolder) holder).tapSelectContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //call fragment
                         FragmentManager fragmentManager = parentFragment.getFragmentManager();
                         DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) item).getItems());
+                        dFragment.setSelectionListener(new DialogFragmentSpinnerItems.DialogFragmentSpinnerItemsListener() {
+                            @Override
+                            public void onItemSelected(String item) {
+                                ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
+                                ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(item);
+                            }
+                        });
                         dFragment.show(fragmentManager, "DialogFragmentSpinnerItems");
-
-                        ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
                     }
                 });
 
