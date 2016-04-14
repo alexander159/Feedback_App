@@ -2,7 +2,6 @@ package app.survey.android.feedbackapp.adapter;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -137,22 +136,36 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             }
             case SURVEY_ITEM_YES_NO: {
                 ((SurveyItemYesNoViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
+
+                if (((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).isNo()) {
+                    ((SurveyItemYesNoViewHolder) holder).yes.setBackgroundResource(R.drawable.yesno_left_tab_nonselected);
+                    ((SurveyItemYesNoViewHolder) holder).yes.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                    ((SurveyItemYesNoViewHolder) holder).no.setBackgroundResource(R.drawable.yesno_right_tab_selected);
+                    ((SurveyItemYesNoViewHolder) holder).no.setTextColor(ContextCompat.getColor(context, R.color.white));
+                } else if ((((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).isYes())) {
+                    ((SurveyItemYesNoViewHolder) holder).yes.setBackgroundResource(R.drawable.yesno_left_tab_selected);
+                    ((SurveyItemYesNoViewHolder) holder).yes.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    ((SurveyItemYesNoViewHolder) holder).no.setBackgroundResource(R.drawable.yesno_right_tab_nonselected);
+                    ((SurveyItemYesNoViewHolder) holder).no.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                } else {
+                    ((SurveyItemYesNoViewHolder) holder).yes.setBackgroundResource(R.drawable.yesno_left_tab_nonselected);
+                    ((SurveyItemYesNoViewHolder) holder).yes.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                    ((SurveyItemYesNoViewHolder) holder).no.setBackgroundResource(R.drawable.yesno_right_tab_nonselected);
+                    ((SurveyItemYesNoViewHolder) holder).no.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                }
+
                 ((SurveyItemYesNoViewHolder) holder).yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((SurveyItemYesNoViewHolder) holder).yes.setBackgroundResource(R.drawable.yesno_left_tab_selected);
-                        ((SurveyItemYesNoViewHolder) holder).yes.setTextColor(ContextCompat.getColor(context, R.color.white));
-                        ((SurveyItemYesNoViewHolder) holder).no.setBackgroundColor(Color.TRANSPARENT);
-                        ((SurveyItemYesNoViewHolder) holder).no.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                        ((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).setYes();
+                        notifyDataSetChanged();
                     }
                 });
                 ((SurveyItemYesNoViewHolder) holder).no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((SurveyItemYesNoViewHolder) holder).yes.setBackgroundColor(Color.TRANSPARENT);
-                        ((SurveyItemYesNoViewHolder) holder).yes.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
-                        ((SurveyItemYesNoViewHolder) holder).no.setBackgroundResource(R.drawable.yesno_right_tab_selected);
-                        ((SurveyItemYesNoViewHolder) holder).no.setTextColor(ContextCompat.getColor(context, R.color.white));
+                        ((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).setNo();
+                        notifyDataSetChanged();
                     }
                 });
 
