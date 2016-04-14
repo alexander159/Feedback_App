@@ -55,4 +55,9 @@
     <!-- Survey activity -->
     <string name="activity_survey_category_title">Category:</string>
 
+    <!-- Survey content fragment -->
+    <string name="fragment_survey_content_spinner_tap_select">Tap to select</string>
+    <string name="fragment_survey_content_yesno_yes">Yes</string>
+    <string name="fragment_survey_content_yesno_no">No</string>
+
 </resources>
