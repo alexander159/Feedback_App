@@ -45,15 +45,15 @@ public class SurveyContentFragment extends Fragment {
                         add("Value1");
                         add("Value2");
                         add("Value3");
-                        add("Value4");
-                        add("Value5");
-                        add("Value6");
-                        add("Value7");
-                        add("Value8");
-                        add("Value9");
-                        add("Value10");
-                        add("Value11");
-                        add("Value12");
+                    }}
+            ));
+            add(new SurveyItemComment(getResources().getString(R.string.fragment_survey_content_placeholder), ""));
+            add(new SurveyItemStarRate(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
+            add(new SurveyItemYesNo(getResources().getString(R.string.fragment_survey_content_placeholder), false, false));
+            add(new SurveyItemYesNo(getResources().getString(R.string.fragment_survey_content_placeholder), false, false));
+            add(new SurveyItemSpinner(
+                    getResources().getString(R.string.fragment_survey_content_placeholder),
+                    new ArrayList<String>() {{
                         add("Value1");
                         add("Value2");
                         add("Value3");
@@ -61,17 +61,8 @@ public class SurveyContentFragment extends Fragment {
                         add("Value5");
                         add("Value6");
                         add("Value7");
-                        add("Value8");
-                        add("Value9");
-                        add("Value10");
-                        add("Value11");
-                        add("Value12");
                     }}
             ));
-            add(new SurveyItemComment(getResources().getString(R.string.fragment_survey_content_placeholder), ""));
-            add(new SurveyItemStarRate(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
-            add(new SurveyItemYesNo(getResources().getString(R.string.fragment_survey_content_placeholder), false, false));
-            add(new SurveyItemYesNo(getResources().getString(R.string.fragment_survey_content_placeholder), false, false));
             add(new SurveyItemYesNo(getResources().getString(R.string.fragment_survey_content_placeholder), false, false));
             add(new SurveyItemStarRate(getResources().getString(R.string.fragment_survey_content_placeholder), 0));
             add(new SurveyItemComment(getResources().getString(R.string.fragment_survey_content_placeholder), ""));
@@ -90,6 +81,13 @@ public class SurveyContentFragment extends Fragment {
                         add("Value10");
                         add("Value11");
                         add("Value12");
+                        add("Value13");
+                        add("Value14");
+                        add("Value15");
+                        add("Value16");
+                        add("Value17");
+                        add("Value18");
+                        add("Value19");
                     }}
             ));
             add(new SurveyItemSeekbar(getResources().getString(R.string.fragment_survey_content_placeholder), 0));

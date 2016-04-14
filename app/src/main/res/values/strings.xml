@@ -60,5 +60,7 @@
     <string name="fragment_survey_content_yesno_yes">Yes</string>
     <string name="fragment_survey_content_yesno_no">No</string>
     <string name="fragment_survey_content_placeholder">0. Ameliorer ton entrerent ici sol deroulent echauffer. Ennemis la symbole or oh justice. Parce tenez essor ah va forme.</string>
+    <string name="fragment_dialog_spinner_items_reset">Reset</string>
+    <string name="fragment_dialog_spinner_items_done">Done</string>
 
 </resources>

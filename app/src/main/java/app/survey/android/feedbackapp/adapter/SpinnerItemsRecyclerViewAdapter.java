@@ -39,7 +39,7 @@ public class SpinnerItemsRecyclerViewAdapter extends RecyclerView.Adapter<Spinne
         holder.title.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, parentFragment.getActivity().getApplicationContext()));
 
         //Determine which tile still has pressed color and reset it
-        if (pressedPosition != -1 && pressedPosition != position &&
+        if (pressedPosition != position &&
                 holder.title.getCurrentTextColor() == ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.white)) {
             holder.titleContainer.setBackgroundColor(ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.white));
             holder.title.setTextColor(ContextCompat.getColor(parentFragment.getActivity().getApplicationContext(), R.color.darkgrey));
