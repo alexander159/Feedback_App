@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="EditText.Style" parent="Widget.AppCompat.EditText">
+    <style name="EditText" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/EditText.TextColour</item>
         <!-- textColorHint not working with TextInputLayout as parent -->
         <item name="android:textColorHint">@color/EditText.TextColourHint</item>
@@ -28,10 +28,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
         <!-- theme for bottom line color -->
-        <item name="android:theme">@style/EditText.Theme</item>
+        <item name="android:theme">@style/EditText.Theme.Blue</item>
     </style>
 
-    <style name="EditText.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="EditText.Theme.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Bottom line when not selected / focused -->
         <item name="colorControlNormal">@color/EditText.Normal</item>
         <!-- Bottom line when selected / focused -->
@@ -39,18 +39,23 @@
         <item name="colorControlHighlight">@color/EditText.Activated</item>
     </style>
 
-    <style name="EditText.TexiInputLayout.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="EditText.TexiInputLayout.Theme.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/EditText.TextColourHint</item>
         <!-- Label color in TRUE state -->
         <item name="colorControlActivated">@color/EditText.Activated</item>
     </style>
 
-    <style name="CheckBoxCustomStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+    <style name="CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:textColor">@color/grey</item>
         <item name="android:button">@drawable/checkbox_bg</item>
         <item name="android:paddingLeft">7dp</item>
         <item name="android:textSize">8pt</item>
+        <item name="android:theme">@style/CheckBox.Theme.Blue</item>
+    </style>
+
+    <style name="CheckBox.Theme.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <style name="SubmitButton.Green" parent="Widget.AppCompat.Button.Colored">
@@ -64,11 +69,11 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="SeekBar.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SeekBar.Theme.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="EditText.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Comment.EditText.Theme.Blue" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 

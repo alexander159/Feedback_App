@@ -26,11 +26,11 @@
                 android:id="@+id/input_layout_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.TexiInputLayout.Theme">
+                android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                 <EditText
                     android:id="@+id/name"
-                    style="@style/EditText.Style"
+                    style="@style/EditText"
                     android:hint="@string/fragment_patient_details_name_hint"
                     android:inputType="textPersonName" />
 
@@ -47,11 +47,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:theme="@style/EditText.TexiInputLayout.Theme">
+                    android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                     <EditText
                         android:id="@+id/age"
-                        style="@style/EditText.Style"
+                        style="@style/EditText"
                         android:hint="@string/fragment_patient_details_age_hint"
                         android:inputType="numberDecimal" />
 
@@ -62,11 +62,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:theme="@style/EditText.TexiInputLayout.Theme">
+                    android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                     <EditText
                         android:id="@+id/ipno"
-                        style="@style/EditText.Style"
+                        style="@style/EditText"
                         android:hint="@string/fragment_patient_details_ipno_hint"
                         android:inputType="numberDecimal" />
 
@@ -79,11 +79,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:theme="@style/EditText.TexiInputLayout.Theme">
+                android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                 <EditText
                     android:id="@+id/email"
-                    style="@style/EditText.Style"
+                    style="@style/EditText"
                     android:hint="@string/fragment_patient_details_email_hint"
                     android:inputType="textEmailAddress" />
 
@@ -107,7 +107,8 @@
 
                 <CheckBox
                     android:id="@+id/came_as_patient_check"
-                    style="@style/CheckBoxCustomStyle"
+                    style="@style/CheckBox"
+
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
@@ -116,7 +117,7 @@
 
                 <CheckBox
                     android:id="@+id/came_as_relative_check"
-                    style="@style/CheckBoxCustomStyle"
+                    style="@style/CheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
@@ -124,7 +125,7 @@
 
                 <CheckBox
                     android:id="@+id/came_as_visitor_check"
-                    style="@style/CheckBoxCustomStyle"
+                    style="@style/CheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
@@ -151,7 +152,7 @@
 
                 <CheckBox
                     android:id="@+id/sex_male_check"
-                    style="@style/CheckBoxCustomStyle"
+                    style="@style/CheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
@@ -160,7 +161,7 @@
 
                 <CheckBox
                     android:id="@+id/sex_female_check"
-                    style="@style/CheckBoxCustomStyle"
+                    style="@style/CheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
@@ -168,7 +169,7 @@
 
                 <CheckBox
                     android:id="@+id/sex_others_check"
-                    style="@style/CheckBoxCustomStyle"
+                    style="@style/CheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
@@ -182,11 +183,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:theme="@style/EditText.TexiInputLayout.Theme">
+                android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                 <EditText
                     android:id="@+id/phone"
-                    style="@style/EditText.Style"
+                    style="@style/EditText"
                     android:hint="@string/fragment_patient_details_phone_hint"
                     android:inputType="phone" />
 
@@ -197,11 +198,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:theme="@style/EditText.TexiInputLayout.Theme">
+                android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                 <EditText
                     android:id="@+id/ward"
-                    style="@style/EditText.Style"
+                    style="@style/EditText"
                     android:hint="@string/fragment_patient_details_ward_hint"
                     android:inputType="text" />
 
@@ -212,11 +213,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:theme="@style/EditText.TexiInputLayout.Theme">
+                android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
                 <EditText
                     android:id="@+id/bed_no"
-                    style="@style/EditText.Style"
+                    style="@style/EditText"
                     android:hint="@string/fragment_patient_details_bed_no_hint"
                     android:inputType="numberDecimal" />
 

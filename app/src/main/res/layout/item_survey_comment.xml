@@ -36,7 +36,7 @@
             android:inputType="textMultiLine"
             android:padding="5dp"
             android:textSize="18sp"
-            android:theme="@style/EditText.Blue" />
+            android:theme="@style/Comment.EditText.Theme.Blue" />
 
     </LinearLayout>
 

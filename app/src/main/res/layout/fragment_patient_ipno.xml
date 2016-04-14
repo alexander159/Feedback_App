@@ -14,11 +14,11 @@
         android:id="@+id/input_layout_ipno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/EditText.TexiInputLayout.Theme">
+        android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
         <EditText
             android:id="@+id/ipno"
-            style="@style/EditText.Style"
+            style="@style/EditText"
             android:hint="@string/fragment_patient_ipno_hint"
             android:inputType="numberDecimal" />
 

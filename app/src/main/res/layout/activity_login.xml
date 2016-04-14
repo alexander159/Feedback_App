@@ -42,11 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:theme="@style/EditText.TexiInputLayout.Theme">
+            android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
             <EditText
                 android:id="@+id/username"
-                style="@style/EditText.Style"
+                style="@style/EditText"
                 android:hint="@string/activity_login_username_hint"
                 android:inputType="textEmailAddress" />
 
@@ -58,11 +58,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="5dp"
-            android:theme="@style/EditText.TexiInputLayout.Theme">
+            android:theme="@style/EditText.TexiInputLayout.Theme.Blue">
 
             <EditText
                 android:id="@+id/password"
-                style="@style/EditText.Style"
+                style="@style/EditText"
                 android:hint="@string/activity_login_password_hint"
                 android:inputType="textPassword" />
 

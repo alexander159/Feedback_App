@@ -1,5 +1,6 @@
 package app.survey.android.feedbackapp.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -86,6 +88,7 @@ public class PatientDetailsFragment extends Fragment {
         cameAsPatientCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(cameAsPatientCheck, getActivity());
                 cameAsPatientCheck.setChecked(true);
                 cameAsRelativeCheck.setChecked(false);
                 cameAsVisitorCheck.setChecked(false);
@@ -94,6 +97,7 @@ public class PatientDetailsFragment extends Fragment {
         cameAsRelativeCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(cameAsRelativeCheck, getActivity());
                 cameAsPatientCheck.setChecked(false);
                 cameAsRelativeCheck.setChecked(true);
                 cameAsVisitorCheck.setChecked(false);
@@ -102,6 +106,7 @@ public class PatientDetailsFragment extends Fragment {
         cameAsVisitorCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(cameAsVisitorCheck, getActivity());
                 cameAsPatientCheck.setChecked(false);
                 cameAsRelativeCheck.setChecked(false);
                 cameAsVisitorCheck.setChecked(true);
@@ -111,6 +116,7 @@ public class PatientDetailsFragment extends Fragment {
         sexMaleCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(sexMaleCheck, getActivity());
                 sexMaleCheck.setChecked(true);
                 sexFemaleCheck.setChecked(false);
                 sexOthersCheck.setChecked(false);
@@ -119,6 +125,7 @@ public class PatientDetailsFragment extends Fragment {
         sexFemaleCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(sexFemaleCheck, getActivity());
                 sexMaleCheck.setChecked(false);
                 sexFemaleCheck.setChecked(true);
                 sexOthersCheck.setChecked(false);
@@ -127,6 +134,7 @@ public class PatientDetailsFragment extends Fragment {
         sexOthersCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftKeyboard(sexOthersCheck, getActivity());
                 sexMaleCheck.setChecked(false);
                 sexFemaleCheck.setChecked(false);
                 sexOthersCheck.setChecked(true);
@@ -168,5 +176,17 @@ public class PatientDetailsFragment extends Fragment {
                 bedNo.getText().toString().trim().isEmpty() ||
                 (!cameAsPatientCheck.isChecked() && !cameAsRelativeCheck.isChecked() && !cameAsVisitorCheck.isChecked()) ||
                 (!sexMaleCheck.isChecked() && !sexFemaleCheck.isChecked() && !sexOthersCheck.isChecked());
+    }
+
+    private void hideSoftKeyboard(CheckBox checkBox, Activity parent) {
+        //set focus to the pressed checkbox
+        checkBox.setFocusableInTouchMode(true);
+        checkBox.requestFocus();
+        //hide soft keyboard
+        InputMethodManager inputMethodManager = (InputMethodManager) parent.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(parent.getCurrentFocus().getWindowToken(), 0);
+        //clear focus of the pressed checkbox
+        checkBox.setFocusableInTouchMode(false);
+        checkBox.clearFocus();
     }
 }
