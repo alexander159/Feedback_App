@@ -90,7 +90,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 });
 
                 ((SurveyItemSpinnerViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
-                ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
+                ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
                 break;
             }
             case SURVEY_ITEM_STAR_RATE: {
@@ -122,8 +122,8 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 });
 
                 ((SurveyItemYesNoViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
-                ((SurveyItemYesNoViewHolder) holder).yes.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
-                ((SurveyItemYesNoViewHolder) holder).no.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
+                ((SurveyItemYesNoViewHolder) holder).yes.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
+                ((SurveyItemYesNoViewHolder) holder).no.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
                 break;
             }
             case SURVEY_ITEM_SEEKBAR: {
@@ -151,7 +151,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSeekbarViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemSeekbarViewHolder) holder).maxValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemSeekbarViewHolder) holder).minValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
-                ((SurveyItemSeekbarViewHolder) holder).currentValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
+                ((SurveyItemSeekbarViewHolder) holder).currentValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
                 break;
             }
             case SURVEY_ITEM_COMMENT: {

@@ -35,7 +35,8 @@
             android:gravity="top|start"
             android:inputType="textMultiLine"
             android:padding="5dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:theme="@style/EditText.Blue" />
 
     </LinearLayout>
 
