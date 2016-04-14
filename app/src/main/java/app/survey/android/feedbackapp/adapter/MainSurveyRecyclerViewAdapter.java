@@ -33,7 +33,7 @@ public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurv
 
     @Override
     public void onBindViewHolder(MainSurveyRecyclerViewAdapter.MainSurveyViewHolder holder, int position) {
-        MainSurvey survey = mainSurveys.get(position);
+        final MainSurvey survey = mainSurveys.get(position);
 
         holder.surveyTitle.setText(survey.getTitle());
         holder.completedTitle.setText(context.getResources().getString(R.string.activity_main_recyclerview_completed));
@@ -52,7 +52,7 @@ public class MainSurveyRecyclerViewAdapter extends RecyclerView.Adapter<MainSurv
             @Override
             public void onClick(View v) {
                 MainSurveyRecyclerViewResponder responder = (MainSurveyRecyclerViewResponder) context;
-                responder.onSurveySelected();
+                responder.onSurveySelected(survey);
             }
         });
 

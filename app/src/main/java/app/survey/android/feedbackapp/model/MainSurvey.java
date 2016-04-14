@@ -1,6 +1,8 @@
 package app.survey.android.feedbackapp.model;
 
-public class MainSurvey {
+import java.io.Serializable;
+
+public class MainSurvey implements Serializable {
     private int iconRes;
     private String title;
     private int completedCount;

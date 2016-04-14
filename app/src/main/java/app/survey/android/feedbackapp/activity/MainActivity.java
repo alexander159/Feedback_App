@@ -89,9 +89,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSurveySelected() {
+    public void onSurveySelected(MainSurvey mainSurvey) {
         Intent patientDataIntent = new Intent(MainActivity.this, PatientDataActivity.class);
         patientDataIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        patientDataIntent.putExtra(SurveyActivity.SURVEY, mainSurvey);
         startActivity(patientDataIntent);
         overridePendingTransition(0, 0);
     }

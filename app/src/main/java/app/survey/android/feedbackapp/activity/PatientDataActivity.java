@@ -10,6 +10,7 @@ import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.fragment.PatientDetailsFragment;
 import app.survey.android.feedbackapp.fragment.PatientIpnoFragment;
 import app.survey.android.feedbackapp.fragment.PatientTypeFragment;
+import app.survey.android.feedbackapp.model.MainSurvey;
 import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientIpnoFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientTypeFragmentResponder;
@@ -18,6 +19,8 @@ public class PatientDataActivity extends AppCompatActivity
         implements PatientTypeFragmentResponder,
         PatientIpnoFragmentResponder,
         PatientDetailsFragmentResponder {
+
+    public MainSurvey selectedSurvey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,13 @@ public class PatientDataActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         changeToolbarTitle("");
 
+        selectedSurvey = (MainSurvey) getIntent().getSerializableExtra(SurveyActivity.SURVEY);
+
         setNextActiveFragment(new PatientTypeFragment());
     }
 
     private void changeToolbarTitle(String title) {
-        if (title.isEmpty()) {
+        if (title == null || title.isEmpty()) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -74,5 +79,15 @@ public class PatientDataActivity extends AppCompatActivity
         surveyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(surveyIntent);
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        } else {
+            changeToolbarTitle("");
+            getFragmentManager().popBackStack();
+        }
     }
 }
