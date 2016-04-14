@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.whinc.widget.ratingbar.RatingBar;
+
 import java.util.ArrayList;
 
 import app.survey.android.feedbackapp.R;
@@ -22,7 +24,6 @@ import app.survey.android.feedbackapp.model.SurveyItemSpinner;
 import app.survey.android.feedbackapp.model.SurveyItemStarRate;
 import app.survey.android.feedbackapp.model.SurveyItemYesNo;
 import app.survey.android.feedbackapp.util.FontManager;
-import io.techery.properratingbar.ProperRatingBar;
 
 public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
 
@@ -95,7 +96,8 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             }
             case SURVEY_ITEM_STAR_RATE: {
                 ((SurveyItemStarRateViewHolder) holder).question.setText(item.getQuestion());
-                ((SurveyItemStarRateViewHolder) holder).properRatingBar.setRating(0);
+                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setMaxCount(SurveyItemStarRate.MAX_VALUE);
+                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setCount(0);
 
                 ((SurveyItemStarRateViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 break;
@@ -185,13 +187,13 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
 
     public static class SurveyItemStarRateViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
-        private ProperRatingBar properRatingBar;
+        private RatingBar whincRatingBar;
 
         public SurveyItemStarRateViewHolder(View itemView) {
             super(itemView);
 
             question = (TextView) itemView.findViewById(R.id.question);
-            properRatingBar = (ProperRatingBar) itemView.findViewById(R.id.proper_rating_bar);
+            whincRatingBar = (RatingBar) itemView.findViewById(R.id.whinc_rating_bar);
         }
     }
 

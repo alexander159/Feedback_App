@@ -28,17 +28,17 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <io.techery.properratingbar.ProperRatingBar
-            android:id="@+id/proper_rating_bar"
+        <com.whinc.widget.ratingbar.RatingBar
+            android:id="@+id/whinc_rating_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:prb_clickable="true"
-            app:prb_defaultRating="0"
-            app:prb_tickNormalDrawable="@drawable/ic_star_empty"
-            app:prb_tickSelectedDrawable="@drawable/ic_star_filled"
-            app:prb_totalTicks="10" />
+            app:rb_click_rating="true"
+            app:rb_count="0"
+            app:rb_empty="@drawable/ic_star_empty"
+            app:rb_fill="@drawable/ic_star_filled"
+            app:rb_max_count="10"
+            app:rb_space="0dp"
+            app:rb_touch_rating="true" />
 
     </LinearLayout>
 
