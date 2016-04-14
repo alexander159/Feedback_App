@@ -3,6 +3,7 @@ package app.survey.android.feedbackapp.adapter;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -83,16 +84,14 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        final SurveyItem item = surveyQuestions.get(position);
-
         switch (getItemViewType(position)) {
             case SURVEY_ITEM_SPINNER: {
-                ((SurveyItemSpinnerViewHolder) holder).question.setText(item.getQuestion());
-                if (((SurveyItemSpinner) item).getSelectedPos() == SurveyItemSpinner.NOTHING_SELECTED) {
+                ((SurveyItemSpinnerViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
+                if (((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).getSelectedPos() == SurveyItemSpinner.NOTHING_SELECTED) {
                     ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(context.getResources().getString(R.string.fragment_survey_content_spinner_tap_select));
                     ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.grey));
                 } else {
-                    ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(((SurveyItemSpinner) item).getItems().get(((SurveyItemSpinner) item).getSelectedPos()));
+                    ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).getItems().get(((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).getSelectedPos()));
                     ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
                 }
 
@@ -100,11 +99,11 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         FragmentManager fragmentManager = parentFragment.getFragmentManager();
-                        DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) item).getItems());
+                        DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).getItems());
                         dFragment.setSelectionListener(new DialogFragmentSpinnerItems.DialogFragmentSpinnerItemsListener() {
                             @Override
                             public void onItemSelected(String stribgValue, int position) {
-                                ((SurveyItemSpinner) item).setSelectedPos(position);
+                                ((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).setSelectedPos(position);
                                 notifyDataSetChanged();
                             }
                         });
@@ -117,15 +116,27 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 break;
             }
             case SURVEY_ITEM_STAR_RATE: {
-                ((SurveyItemStarRateViewHolder) holder).question.setText(item.getQuestion());
+                ((SurveyItemStarRateViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setMaxCount(SurveyItemStarRate.MAX_VALUE);
-                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setCount(0);
+                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setCount(((SurveyItemStarRate) surveyQuestions.get(holder.getAdapterPosition())).getValue());
+                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+                    @Override
+                    public void onChange(RatingBar ratingBar, int i, final int i1) {
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((SurveyItemStarRate) surveyQuestions.get(holder.getAdapterPosition())).setValue(i1);
+                                notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
 
                 ((SurveyItemStarRateViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 break;
             }
             case SURVEY_ITEM_YES_NO: {
-                ((SurveyItemYesNoViewHolder) holder).question.setText(item.getQuestion());
+                ((SurveyItemYesNoViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemYesNoViewHolder) holder).yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -151,7 +162,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 break;
             }
             case SURVEY_ITEM_SEEKBAR: {
-                ((SurveyItemSeekbarViewHolder) holder).question.setText(item.getQuestion());
+                ((SurveyItemSeekbarViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemSeekbarViewHolder) holder).maxValue.setText(String.valueOf(SurveyItemSeekbar.MAX_VALUE));
                 ((SurveyItemSeekbarViewHolder) holder).minValue.setText(String.valueOf(0));
                 ((SurveyItemSeekbarViewHolder) holder).currentValue.setText(String.valueOf(0));
@@ -179,7 +190,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 break;
             }
             case SURVEY_ITEM_COMMENT: {
-                ((SurveyItemCommentViewHolder) holder).question.setText(item.getQuestion());
+                ((SurveyItemCommentViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
 
                 ((SurveyItemCommentViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemCommentViewHolder) holder).comment.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
