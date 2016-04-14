@@ -181,12 +181,13 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSeekbarViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemSeekbarViewHolder) holder).maxValue.setText(String.valueOf(SurveyItemSeekbar.MAX_VALUE));
                 ((SurveyItemSeekbarViewHolder) holder).minValue.setText(String.valueOf(0));
-                ((SurveyItemSeekbarViewHolder) holder).currentValue.setText(String.valueOf(0));
+                ((SurveyItemSeekbarViewHolder) holder).currentValue.setText(String.valueOf(((SurveyItemSeekbar) surveyQuestions.get(holder.getAdapterPosition())).getValue()));
                 ((SurveyItemSeekbarViewHolder) holder).seekbar.setMax(SurveyItemSeekbar.MAX_VALUE);
-                ((SurveyItemSeekbarViewHolder) holder).seekbar.setProgress(0);
+                ((SurveyItemSeekbarViewHolder) holder).seekbar.setProgress(((SurveyItemSeekbar) surveyQuestions.get(holder.getAdapterPosition())).getValue());
                 ((SurveyItemSeekbarViewHolder) holder).seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        ((SurveyItemSeekbar) surveyQuestions.get(holder.getAdapterPosition())).setValue(progress);
                         ((SurveyItemSeekbarViewHolder) holder).currentValue.setText(String.valueOf(progress));
                     }
 
@@ -196,6 +197,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
+                        notifyDataSetChanged();
                     }
                 });
 
