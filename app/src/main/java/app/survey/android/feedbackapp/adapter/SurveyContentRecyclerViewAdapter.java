@@ -3,7 +3,6 @@ package app.survey.android.feedbackapp.adapter;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -227,12 +226,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             onRatingChangeListener = new RatingBar.OnRatingChangeListener() {
                 @Override
                 public void onChange(RatingBar ratingBar, int i, final int i1) {
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((SurveyItemStarRate) surveyQuestions.get(getAdapterPosition())).setValue(i1);
-                        }
-                    });
+                    ((SurveyItemStarRate) surveyQuestions.get(getAdapterPosition())).setValue(i1);
                 }
             };
             return onRatingChangeListener;
