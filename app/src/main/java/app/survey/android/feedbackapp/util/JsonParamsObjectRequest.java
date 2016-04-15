@@ -12,18 +12,18 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-public class JSONObjectRequest extends Request<JSONObject> {
+public class JsonParamsObjectRequest extends Request<JSONObject> {
 
     private Response.Listener<JSONObject> listener;
     private Map<String, String> params;
 
-    public JSONObjectRequest(String url, Map<String, String> params, Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
+    public JsonParamsObjectRequest(String url, Map<String, String> params, Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
     }
 
-    public JSONObjectRequest(int method, String url, Map<String, String> params, Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
+    public JsonParamsObjectRequest(int method, String url, Map<String, String> params, Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;

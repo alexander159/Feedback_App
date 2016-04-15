@@ -10,6 +10,8 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="check_connection_dialog">Check your connection!</string>
+    <string name="check_connection_dialog_close">Close</string>
 
     <!-- Main activity -->
     <string name="activity_main_toolbar_title">Surveys</string>
