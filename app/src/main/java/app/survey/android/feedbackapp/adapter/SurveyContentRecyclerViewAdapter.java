@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -211,6 +213,21 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemCommentViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemCommentViewHolder) holder).comment.setText(((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).getComment());
 
+                ((SurveyItemCommentViewHolder) holder).comment.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        //save state
+                        ((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).setComment(s.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
                 ((SurveyItemCommentViewHolder) holder).comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -222,10 +239,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
-                        //save state
-                        ((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).setComment(((SurveyItemCommentViewHolder) holder).comment.getText().toString());
                         notifyDataSetChanged();
-
                         return true;
                     }
                 });
