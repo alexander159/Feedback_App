@@ -1,6 +1,7 @@
 package app.survey.android.feedbackapp.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -72,6 +73,16 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        SharedPreferences sPref = getSharedPreferences(SharedPrefs.PREFS_NAME, Context.MODE_PRIVATE);
+        if (sPref.getString(SharedPrefs.USER_ID, null) != null &&
+                sPref.getString(SharedPrefs.HOSPITAL_ID, null) != null &&
+                sPref.getString(SharedPrefs.FEEDBACK_OFFLINE_JSON_ARRAY, null) != null) {
+            Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            overridePendingTransition(0, 0);
+        }
     }
 
     private void attemptLogin() {
