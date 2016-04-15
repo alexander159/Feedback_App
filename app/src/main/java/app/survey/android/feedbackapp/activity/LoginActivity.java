@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         password.setError(null);
 
         // Store values at the time of the login attempt.
-        String usernameStr = username.getText().toString();
+        String usernameStr = username.getText().toString().trim();
         String passwordStr = password.getText().toString();
 
         boolean cancel = false;
@@ -121,8 +121,8 @@ public class LoginActivity extends AppCompatActivity {
             showProgressBar();
 
             String loginUrl = ServerApi.GET_FEEDBACK_LIST
-                    .replace(ServerApi.USER_LOGIN, usernameStr)
-                    .replace(ServerApi.USER_PASSWORD, passwordStr);
+                    .replace(ServerApi.ParameterValues.USER_LOGIN, usernameStr)
+                    .replace(ServerApi.ParameterValues.USER_PASSWORD, passwordStr);
 
             JsonObjectRequest userLoginRequest = new JsonObjectRequest(loginUrl, null,
                     new Response.Listener<JSONObject>() {

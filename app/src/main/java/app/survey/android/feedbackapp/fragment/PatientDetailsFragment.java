@@ -27,6 +27,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONObject;
 
 import app.survey.android.feedbackapp.R;
+import app.survey.android.feedbackapp.model.ServerJSON.Patient;
 import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
 import app.survey.android.feedbackapp.util.ErrorGuiResponder;
 import app.survey.android.feedbackapp.util.FontManager;
@@ -34,9 +35,15 @@ import app.survey.android.feedbackapp.util.RequestController;
 import app.survey.android.feedbackapp.util.ServerApi;
 import app.survey.android.feedbackapp.util.SharedPrefs;
 
+/**
+ * Use the {@link PatientDetailsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class PatientDetailsFragment extends Fragment {
     public static final String TAG = PatientDetailsFragment.class.getName();
 
+    private static final String PATIENT = "patient";
+    private Patient patient;
     private EditText name;
     private EditText age;
     private EditText ipno;
@@ -53,6 +60,30 @@ public class PatientDetailsFragment extends Fragment {
     private ProgressBar progressBar;
     private FloatingActionButton fab;
     private ScrollView detailsScrollView;
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment PatientDetailsFragment.
+     */
+    public static PatientDetailsFragment newInstance(Patient patient) {
+        PatientDetailsFragment fragment = new PatientDetailsFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(PATIENT, patient);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            patient = (Patient) getArguments().getSerializable(PATIENT);
+        } else {
+            patient = null;
+        }
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -182,7 +213,45 @@ public class PatientDetailsFragment extends Fragment {
             }
         });
 
+        if (patient != null) {
+            populateFields(patient);
+        }
+
         return view;
+    }
+
+    private void populateFields(Patient patient) {
+        name.setText(patient.getName());
+        age.setText(String.valueOf(patient.getAge()));
+        ipno.setText(patient.getIpno());
+        email.setText(patient.getEmail());
+        phone.setText(patient.getPhone());
+        ward.setText(patient.getWardNo());
+        bedNo.setText(patient.getBeNo());
+
+        switch (patient.getCameAs()) {
+            case Patient:
+                cameAsPatientCheck.setChecked(true);
+                break;
+            case Relative:
+                cameAsRelativeCheck.setChecked(true);
+                break;
+            case Visitor:
+                cameAsVisitorCheck.setChecked(true);
+                break;
+        }
+
+        switch (patient.getSex()) {
+            case Male:
+                sexMaleCheck.setChecked(true);
+                break;
+            case Female:
+                sexFemaleCheck.setChecked(true);
+                break;
+            case Others:
+                sexOthersCheck.setChecked(true);
+                break;
+        }
     }
 
     private void attemptRegisterPatient() {
@@ -195,30 +264,32 @@ public class PatientDetailsFragment extends Fragment {
             return;
         }
 
+        showProgressBar();
+
         String registerPatientUrl = ServerApi.ADD_NEW_PATIENT
-                .replace(ServerApi.PatientJSON.HOSPITAL_ID, hospital_id)
-                .replace(ServerApi.PatientJSON.NAME, name.getText().toString().trim())
-                .replace(ServerApi.PatientJSON.AGE, age.getText().toString().trim())
-                .replace(ServerApi.PatientJSON.IP_NO, ipno.getText().toString().trim())
-                .replace(ServerApi.PatientJSON.EMAIL, email.getText().toString().trim())
-                .replace(ServerApi.PatientJSON.PHONE, phone.getText().toString().trim())
-                .replace(ServerApi.PatientJSON.WARD_NO, ward.getText().toString().trim())
-                .replace(ServerApi.PatientJSON.BED_NO, bedNo.getText().toString().trim());
+                .replace(ServerApi.ParameterValues.PATIENT_HOSPITAL_ID, hospital_id)
+                .replace(ServerApi.ParameterValues.PATIENT_NAME, name.getText().toString().trim())
+                .replace(ServerApi.ParameterValues.PATIENT_AGE, age.getText().toString().trim())
+                .replace(ServerApi.ParameterValues.PATIENT_IP_NO, ipno.getText().toString().trim())
+                .replace(ServerApi.ParameterValues.PATIENT_EMAIL, email.getText().toString().trim())
+                .replace(ServerApi.ParameterValues.PATIENT_PHONE, phone.getText().toString().trim())
+                .replace(ServerApi.ParameterValues.PATIENT_WARD_NO, ward.getText().toString().trim())
+                .replace(ServerApi.ParameterValues.PATIENT_BED_NO, bedNo.getText().toString().trim());
 
         if (cameAsPatientCheck.isChecked()) {
-            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.PATIENT);
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.ParameterValues.PATIENT_CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.PATIENT);
         } else if (cameAsRelativeCheck.isChecked()) {
-            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.RELATIVE);
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.ParameterValues.PATIENT_CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.RELATIVE);
         } else if (cameAsVisitorCheck.isChecked()) {
-            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.VISITOR);
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.ParameterValues.PATIENT_CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.VISITOR);
         }
 
         if (sexMaleCheck.isChecked()) {
-            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.SEX, ServerApi.PatientJSON.SEX_VALUE.MALE);
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.ParameterValues.PATIENT_SEX, ServerApi.PatientJSON.SEX_VALUE.MALE);
         } else if (sexFemaleCheck.isChecked()) {
-            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.SEX, ServerApi.PatientJSON.SEX_VALUE.FEMALE);
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.ParameterValues.PATIENT_SEX, ServerApi.PatientJSON.SEX_VALUE.FEMALE);
         } else if (sexFemaleCheck.isChecked()) {
-            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.SEX, ServerApi.PatientJSON.SEX_VALUE.OTHERS);
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.ParameterValues.PATIENT_SEX, ServerApi.PatientJSON.SEX_VALUE.OTHERS);
         }
 
         JsonObjectRequest registerPatientRequest = new JsonObjectRequest(registerPatientUrl, null,

@@ -18,6 +18,8 @@ public class ErrorGuiResponder {
     public static final String USERNAME_PASSWORD_INCORRECT = "Username or Password is incorrect";
     public static final String PREFS_LOADING_SURVEY_LIST_ERROR = "Error during loading survey list. Try to login again.";
     public static final String PARSE_SURVEY_LIST_ERROR = "Error during parsing survey list";
+    public static final String PARSE_PATIENT_INFO_ERROR = "Error during parsing patient info";
+    public static final String PATIENT_IP_NO_NOT_FOUND_ERROR = "Patient with entered IP/OP No isn't exist";
     public static final String UNKNOWN_ERROR = "Unknown error";
 
     public static void showAlertDialog(Activity parent, String message) {

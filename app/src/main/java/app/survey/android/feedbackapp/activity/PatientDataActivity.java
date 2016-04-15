@@ -14,6 +14,7 @@ import app.survey.android.feedbackapp.fragment.PatientDetailsFragment;
 import app.survey.android.feedbackapp.fragment.PatientIpnoFragment;
 import app.survey.android.feedbackapp.fragment.PatientTypeFragment;
 import app.survey.android.feedbackapp.model.MainSurvey;
+import app.survey.android.feedbackapp.model.ServerJSON.Patient;
 import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientIpnoFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientTypeFragmentResponder;
@@ -80,9 +81,9 @@ public class PatientDataActivity extends AppCompatActivity
     }
 
     @Override
-    public void onNextPatientIpnoPressed() {
+    public void onNextPatientIpnoPressed(Patient patient) {
         changeToolbarTitle(getResources().getString(R.string.fragment_patient_details_toolbar_title));
-        setNextActiveFragment(new PatientDetailsFragment(), true);
+        setNextActiveFragment(PatientDetailsFragment.newInstance(patient), true);
     }
 
     @Override
@@ -94,6 +95,7 @@ public class PatientDataActivity extends AppCompatActivity
         overridePendingTransition(0, 0);
     }
 
+    //PatientIpnoFragmentResponder, PatientDetailsFragmentResponder
     @Override
     public void onNullPreferencesPatientDetails() {
         Toast.makeText(this, getString(R.string.error_null_preferences), Toast.LENGTH_LONG).show();

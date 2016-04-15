@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         String loginUrl = ServerApi.GET_FEEDBACK_LIST
-                .replace(ServerApi.USER_LOGIN, username)
-                .replace(ServerApi.USER_PASSWORD, password);
+                .replace(ServerApi.ParameterValues.USER_LOGIN, username)
+                .replace(ServerApi.ParameterValues.USER_PASSWORD, password);
 
         JsonObjectRequest userLoginRequest = new JsonObjectRequest(loginUrl, null,
                 new Response.Listener<JSONObject>() {
