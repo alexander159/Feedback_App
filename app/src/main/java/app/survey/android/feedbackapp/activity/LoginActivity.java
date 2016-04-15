@@ -169,6 +169,8 @@ public class LoginActivity extends AppCompatActivity {
 
             SharedPreferences sPref = getSharedPreferences(SharedPrefs.PREFS_NAME, MODE_PRIVATE);
             SharedPreferences.Editor ed = sPref.edit();
+            ed.putString(SharedPrefs.USER_NAME, username.getText().toString());
+            ed.putString(SharedPrefs.USER_PASSWORD, password.getText().toString());
             ed.putString(SharedPrefs.USER_ID, response.getString(ServerApi.LoginJSON.USER_ID));
             ed.putString(SharedPrefs.HOSPITAL_ID, response.getString(ServerApi.LoginJSON.HOSPITAL_ID));
             ed.putString(SharedPrefs.FEEDBACK_OFFLINE_JSON_ARRAY, response.getJSONArray(ServerApi.LoginJSON.FEEDBACKS).toString());
