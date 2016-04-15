@@ -1,11 +1,10 @@
 package app.survey.android.feedbackapp.activity;
 
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import app.survey.android.feedbackapp.R;
+import app.survey.android.feedbackapp.util.ErrorGuiResponder;
 import app.survey.android.feedbackapp.util.FontManager;
 import app.survey.android.feedbackapp.util.RequestController;
 import app.survey.android.feedbackapp.util.ServerApi;
@@ -40,11 +39,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private LinearLayout loginFieldContainer;
     private ProgressBar progressBar;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        activity = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -124,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(loginIntent);
                                 overridePendingTransition(0, 0);
                             } else {
-                                Toast.makeText(getApplicationContext(), "Username/password is incorrect!", Toast.LENGTH_SHORT).show();
+                                ErrorGuiResponder.showAlertDialog(activity, ErrorGuiResponder.USERNAME_PASSWORD_INCORRECT);
                             }
                         }
                     },
@@ -134,20 +136,11 @@ public class LoginActivity extends AppCompatActivity {
                             VolleyLog.d(TAG, "Error: " + error.getMessage());
                             hideProgressBar();
 
-                            if (error.getMessage() == null) {
-                                if (error.networkResponse != null) {
-                                    Toast.makeText(getApplicationContext(), "Error: " + error.networkResponse.statusCode, Toast.LENGTH_SHORT).show();
-                                } else {                                                                                                                                        //timeout error
-                                    showConnectionErrorAlertDialog();
-                                    //Toast.makeText(getApplicationContext(), "Error! Message = " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            } else if (error.networkResponse == null && error.getMessage().contains("java.net.UnknownHostException")) {                                         //no connection
-                                showConnectionErrorAlertDialog();
-                                //Toast.makeText(getApplicationContext(), "Check your connection!", Toast.LENGTH_SHORT).show();
-                            } else if (error.networkResponse == null && error.getMessage().contains("org.json.JSONException: End of input at character 0 of")) {                 //got empty json (for uor case it's invalid username/password
-                                Toast.makeText(getApplicationContext(), "Username/password is incorrect!", Toast.LENGTH_SHORT).show();
-                            } else {                                                                                                                                            //response error, code = error.networkResponse.statusCode
-                                Toast.makeText(getApplicationContext(), "Error: " + (error.networkResponse != null ? error.networkResponse.statusCode : 0), Toast.LENGTH_SHORT).show();
+                            //got empty json, in our case it's invalid username/pass
+                            if (ErrorGuiResponder.getVolleyErrorType(error).equals(ErrorGuiResponder.PARSE_ERROR)) {
+                                ErrorGuiResponder.showAlertDialog(activity, ErrorGuiResponder.USERNAME_PASSWORD_INCORRECT);
+                            } else {
+                                ErrorGuiResponder.showAlertDialog(activity, ErrorGuiResponder.getVolleyErrorType(error));
                             }
                         }
                     }
@@ -159,15 +152,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean parseJsonLoginReq(JSONObject response) {
         try {
-            response.getString("userid");
-            response.getString("hospital_id");
-            response.getJSONArray("feedbacks");
+            response.getString(ServerApi.Login.USER_ID);
+            response.getString(ServerApi.Login.HOSPITAL_ID);
+            response.getJSONArray(ServerApi.Login.FEEDBACKS);
 
-            SharedPreferences sPref = getSharedPreferences(SharedPrefs.PREFS_NAME, MODE_PRIVATE);             //save selected team
+            SharedPreferences sPref = getSharedPreferences(SharedPrefs.PREFS_NAME, MODE_PRIVATE);
             SharedPreferences.Editor ed = sPref.edit();
-            ed.putString(SharedPrefs.USER_ID, response.getString("userid"));
-            ed.putString(SharedPrefs.HOSPITAL_ID, response.getString("hospital_id"));
-            ed.putString(SharedPrefs.FEEDBACK_OFFLINE_JSON_ARRAY, response.getJSONArray("feedbacks").toString());
+            ed.putString(SharedPrefs.USER_ID, response.getString(ServerApi.Login.USER_ID));
+            ed.putString(SharedPrefs.HOSPITAL_ID, response.getString(ServerApi.Login.HOSPITAL_ID));
+            ed.putString(SharedPrefs.FEEDBACK_OFFLINE_JSON_ARRAY, response.getJSONArray(ServerApi.Login.FEEDBACKS).toString());
             ed.commit();
             return true;
         } catch (JSONException e1) {
@@ -188,18 +181,6 @@ public class LoginActivity extends AppCompatActivity {
             loginFieldContainer.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
-    }
-
-    public void showConnectionErrorAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
-        builder.setMessage(getString(R.string.check_connection_dialog));
-        builder.setNegativeButton(getString(R.string.check_connection_dialog_close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
     }
 }
 

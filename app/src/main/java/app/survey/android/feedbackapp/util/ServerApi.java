@@ -12,4 +12,10 @@ public class ServerApi {
             USER_PASSWORD +
             "\"%7D";
 
+
+    public static class Login {
+        public static final String USER_ID = "userid";
+        public static final String HOSPITAL_ID = "hospital_id";
+        public static final String FEEDBACKS = "feedbacks";
+    }
 }
