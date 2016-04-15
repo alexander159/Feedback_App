@@ -2,6 +2,8 @@ package app.survey.android.feedbackapp.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +15,27 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
 
 import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
+import app.survey.android.feedbackapp.util.ErrorGuiResponder;
 import app.survey.android.feedbackapp.util.FontManager;
+import app.survey.android.feedbackapp.util.RequestController;
+import app.survey.android.feedbackapp.util.ServerApi;
+import app.survey.android.feedbackapp.util.SharedPrefs;
 
 public class PatientDetailsFragment extends Fragment {
+    public static final String TAG = PatientDetailsFragment.class.getName();
 
     private EditText name;
     private EditText age;
@@ -34,11 +50,15 @@ public class PatientDetailsFragment extends Fragment {
     private EditText phone;
     private EditText ward;
     private EditText bedNo;
+    private ProgressBar progressBar;
+    private FloatingActionButton fab;
+    private ScrollView detailsScrollView;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_patient_details, container, false);
 
+        detailsScrollView = (ScrollView) view.findViewById(R.id.details_scrollview);
         TextInputLayout inputLayoutName = (TextInputLayout) view.findViewById(R.id.input_layout_name);
         name = (EditText) view.findViewById(R.id.name);
         TextInputLayout inputLayoutAge = (TextInputLayout) view.findViewById(R.id.input_layout_age);
@@ -61,6 +81,7 @@ public class PatientDetailsFragment extends Fragment {
         ward = (EditText) view.findViewById(R.id.ward);
         TextInputLayout inputLayoutBedNo = (TextInputLayout) view.findViewById(R.id.input_layout_bed_no);
         bedNo = (EditText) view.findViewById(R.id.bed_no);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
 
         inputLayoutName.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
         name.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, getActivity().getApplicationContext()));
@@ -141,7 +162,7 @@ public class PatientDetailsFragment extends Fragment {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,14 +177,81 @@ public class PatientDetailsFragment extends Fragment {
                             .setActionTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.colorPrimaryLight))
                             .show();
                 } else {
-                    //move to the selected survey
-                    PatientDetailsFragmentResponder responder = (PatientDetailsFragmentResponder) getActivity();
-                    responder.onDonePatientDetailsButtonPressed();
+                    attemptRegisterPatient();
                 }
             }
         });
 
         return view;
+    }
+
+    private void attemptRegisterPatient() {
+        String hospital_id;
+        SharedPreferences sPref = getActivity().getSharedPreferences(SharedPrefs.PREFS_NAME, Context.MODE_PRIVATE);
+        if ((hospital_id = sPref.getString(SharedPrefs.HOSPITAL_ID, null)) == null) {
+            //move to the login screen
+            PatientDetailsFragmentResponder responder = (PatientDetailsFragmentResponder) getActivity();
+            responder.onNullPreferencesPatientDetails();
+            return;
+        }
+
+        String registerPatientUrl = ServerApi.ADD_NEW_PATIENT
+                .replace(ServerApi.PatientJSON.HOSPITAL_ID, hospital_id)
+                .replace(ServerApi.PatientJSON.NAME, name.getText().toString().trim())
+                .replace(ServerApi.PatientJSON.AGE, age.getText().toString().trim())
+                .replace(ServerApi.PatientJSON.IP_NO, ipno.getText().toString().trim())
+                .replace(ServerApi.PatientJSON.EMAIL, email.getText().toString().trim())
+                .replace(ServerApi.PatientJSON.PHONE, phone.getText().toString().trim())
+                .replace(ServerApi.PatientJSON.WARD_NO, ward.getText().toString().trim())
+                .replace(ServerApi.PatientJSON.BED_NO, bedNo.getText().toString().trim());
+
+        if (cameAsPatientCheck.isChecked()) {
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.PATIENT);
+        } else if (cameAsRelativeCheck.isChecked()) {
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.RELATIVE);
+        } else if (cameAsVisitorCheck.isChecked()) {
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.CAME_AS, ServerApi.PatientJSON.CAME_AS_VALUE.VISITOR);
+        }
+
+        if (sexMaleCheck.isChecked()) {
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.SEX, ServerApi.PatientJSON.SEX_VALUE.MALE);
+        } else if (sexFemaleCheck.isChecked()) {
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.SEX, ServerApi.PatientJSON.SEX_VALUE.FEMALE);
+        } else if (sexFemaleCheck.isChecked()) {
+            registerPatientUrl = registerPatientUrl.replace(ServerApi.PatientJSON.SEX, ServerApi.PatientJSON.SEX_VALUE.OTHERS);
+        }
+
+        JsonObjectRequest registerPatientRequest = new JsonObjectRequest(registerPatientUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        VolleyLog.d(TAG, jsonObject.toString());
+                        hideProgressBar();
+
+                        //move to the selected survey
+                        PatientDetailsFragmentResponder responder = (PatientDetailsFragmentResponder) getActivity();
+                        responder.onDonePatientDetailsButtonPressed();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.d(TAG, "Error: " + error.getMessage());
+                        hideProgressBar();
+
+                        //got empty json, in our case it's updated/added user
+                        if (ErrorGuiResponder.getVolleyErrorType(error).equals(ErrorGuiResponder.PARSE_ERROR)) {
+                            //move to the selected survey
+                            PatientDetailsFragmentResponder responder = (PatientDetailsFragmentResponder) getActivity();
+                            responder.onDonePatientDetailsButtonPressed();
+                        } else {
+                            ErrorGuiResponder.showAlertDialog(getActivity(), ErrorGuiResponder.getVolleyErrorType(error));
+                        }
+                    }
+                }
+        );
+
+        RequestController.getInstance().addToRequestQueue(registerPatientRequest, TAG);
     }
 
     private boolean isAnyFieldEmpty() {
@@ -176,6 +264,22 @@ public class PatientDetailsFragment extends Fragment {
                 bedNo.getText().toString().trim().isEmpty() ||
                 (!cameAsPatientCheck.isChecked() && !cameAsRelativeCheck.isChecked() && !cameAsVisitorCheck.isChecked()) ||
                 (!sexMaleCheck.isChecked() && !sexFemaleCheck.isChecked() && !sexOthersCheck.isChecked());
+    }
+
+    private void showProgressBar() {
+        if (progressBar != null) {
+            detailsScrollView.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideProgressBar() {
+        if (progressBar != null) {
+            detailsScrollView.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void hideSoftKeyboard(CheckBox checkBox, Activity parent) {

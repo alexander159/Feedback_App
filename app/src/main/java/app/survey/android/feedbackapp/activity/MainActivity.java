@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sPref = getSharedPreferences(SharedPrefs.PREFS_NAME, Context.MODE_PRIVATE);
         if ((username = sPref.getString(SharedPrefs.USER_NAME, null)) == null ||
                 (password = sPref.getString(SharedPrefs.USER_PASSWORD, null)) == null) {
-            Toast.makeText(this, getString(R.string.error_username_pass_not_found_in_prefs), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_null_preferences), Toast.LENGTH_LONG).show();
             logout();
             return;
         }

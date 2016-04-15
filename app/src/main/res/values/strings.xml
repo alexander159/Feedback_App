@@ -7,7 +7,7 @@
     <string name="activity_login_login_button">Log in</string>
     <!-- Login error strings -->
     <string name="error_field_required">This field is required</string>
-    <string name="error_username_pass_not_found_in_prefs">Authentication token expired. Please login again.</string>
+    <string name="error_null_preferences">Authentication token expired. Please login again.</string>
     <string name="alert_dialog_close">Close</string>
 
     <!-- Main activity -->
