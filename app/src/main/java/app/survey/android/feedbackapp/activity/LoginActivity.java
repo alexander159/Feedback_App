@@ -163,15 +163,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean parseJsonLoginReq(JSONObject response) {
         try {
-            response.getString(ServerApi.Login.USER_ID);
-            response.getString(ServerApi.Login.HOSPITAL_ID);
-            response.getJSONArray(ServerApi.Login.FEEDBACKS);
+            response.getString(ServerApi.LoginJSON.USER_ID);
+            response.getString(ServerApi.LoginJSON.HOSPITAL_ID);
+            response.getJSONArray(ServerApi.LoginJSON.FEEDBACKS);
 
             SharedPreferences sPref = getSharedPreferences(SharedPrefs.PREFS_NAME, MODE_PRIVATE);
             SharedPreferences.Editor ed = sPref.edit();
-            ed.putString(SharedPrefs.USER_ID, response.getString(ServerApi.Login.USER_ID));
-            ed.putString(SharedPrefs.HOSPITAL_ID, response.getString(ServerApi.Login.HOSPITAL_ID));
-            ed.putString(SharedPrefs.FEEDBACK_OFFLINE_JSON_ARRAY, response.getJSONArray(ServerApi.Login.FEEDBACKS).toString());
+            ed.putString(SharedPrefs.USER_ID, response.getString(ServerApi.LoginJSON.USER_ID));
+            ed.putString(SharedPrefs.HOSPITAL_ID, response.getString(ServerApi.LoginJSON.HOSPITAL_ID));
+            ed.putString(SharedPrefs.FEEDBACK_OFFLINE_JSON_ARRAY, response.getJSONArray(ServerApi.LoginJSON.FEEDBACKS).toString());
             ed.commit();
             return true;
         } catch (JSONException e1) {

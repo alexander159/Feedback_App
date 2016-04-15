@@ -16,6 +16,8 @@ public class ErrorGuiResponder {
     public static final String NETWORK_ERROR = "There was a network error when performing a request";
     public static final String AUTH_FAILURE_ERROR = "There was an authentication failure when performing a request";
     public static final String USERNAME_PASSWORD_INCORRECT = "Username or Password is incorrect";
+    public static final String PREFS_LOADING_SURVEY_LIST_ERROR = "Error during loading survey list. Try to login again.";
+    public static final String PARSE_SURVEY_LIST_ERROR = "Error during parsing survey list";
     public static final String UNKNOWN_ERROR = "Unknown error";
 
     public static void showAlertDialog(Activity parent, String message) {

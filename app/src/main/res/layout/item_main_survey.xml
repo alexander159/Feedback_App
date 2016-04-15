@@ -39,6 +39,9 @@
             android:id="@+id/survey_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="true"
             android:text="Market Research"
             android:textColor="@color/darkgrey"
             android:textSize="18sp" />
@@ -63,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginStart="3dp"
+                android:singleLine="true"
                 android:text="0"
                 android:textColor="@color/darkgrey"
                 android:textSize="14sp" />
@@ -83,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginStart="3dp"
+                android:singleLine="true"
                 android:text="0"
                 android:textColor="@color/darkgrey"
                 android:textSize="14sp" />
