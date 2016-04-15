@@ -87,7 +87,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case SURVEY_ITEM_SPINNER: {
                 ((SurveyItemSpinnerViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
@@ -99,21 +99,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                     ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
                 }
 
-                ((SurveyItemSpinnerViewHolder) holder).tapSelectContainer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentManager fragmentManager = parentFragment.getFragmentManager();
-                        DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).getItems());
-                        dFragment.setSelectionListener(new DialogFragmentSpinnerItems.DialogFragmentSpinnerItemsListener() {
-                            @Override
-                            public void onItemSelected(String stribgValue, int position) {
-                                ((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).setSelectedPos(position);
-                                notifyDataSetChanged();
-                            }
-                        });
-                        dFragment.show(fragmentManager, "DialogFragmentSpinnerItems");
-                    }
-                });
+                ((SurveyItemSpinnerViewHolder) holder).tapSelectContainer.setOnClickListener(((SurveyItemSpinnerViewHolder) holder).getOnClickListener());
 
                 ((SurveyItemSpinnerViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
@@ -123,18 +109,8 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemStarRateViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setMaxCount(SurveyItemStarRate.MAX_VALUE);
                 ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setCount(((SurveyItemStarRate) surveyQuestions.get(holder.getAdapterPosition())).getValue());
-                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
-                    @Override
-                    public void onChange(RatingBar ratingBar, int i, final int i1) {
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((SurveyItemStarRate) surveyQuestions.get(holder.getAdapterPosition())).setValue(i1);
-                                notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
+
+                ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setOnRatingChangeListener(((SurveyItemStarRateViewHolder) holder).getOnRatingChangeListener());
 
                 ((SurveyItemStarRateViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 break;
@@ -159,20 +135,8 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                     ((SurveyItemYesNoViewHolder) holder).no.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
 
-                ((SurveyItemYesNoViewHolder) holder).yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).setYes();
-                        notifyDataSetChanged();
-                    }
-                });
-                ((SurveyItemYesNoViewHolder) holder).no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).setNo();
-                        notifyDataSetChanged();
-                    }
-                });
+                ((SurveyItemYesNoViewHolder) holder).yes.setOnClickListener(((SurveyItemYesNoViewHolder) holder).getYesOnClickListener());
+                ((SurveyItemYesNoViewHolder) holder).no.setOnClickListener(((SurveyItemYesNoViewHolder) holder).getNoOnClickListener());
 
                 ((SurveyItemYesNoViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemYesNoViewHolder) holder).yes.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
@@ -186,22 +150,8 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSeekbarViewHolder) holder).currentValue.setText(String.valueOf(((SurveyItemSeekbar) surveyQuestions.get(holder.getAdapterPosition())).getValue()));
                 ((SurveyItemSeekbarViewHolder) holder).seekbar.setMax(SurveyItemSeekbar.MAX_VALUE);
                 ((SurveyItemSeekbarViewHolder) holder).seekbar.setProgress(((SurveyItemSeekbar) surveyQuestions.get(holder.getAdapterPosition())).getValue());
-                ((SurveyItemSeekbarViewHolder) holder).seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        ((SurveyItemSeekbar) surveyQuestions.get(holder.getAdapterPosition())).setValue(progress);
-                        ((SurveyItemSeekbarViewHolder) holder).currentValue.setText(String.valueOf(progress));
-                    }
 
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                        notifyDataSetChanged();
-                    }
-                });
+                ((SurveyItemSeekbarViewHolder) holder).seekbar.setOnSeekBarChangeListener(((SurveyItemSeekbarViewHolder) holder).getSeekbarChangeListener());
 
                 ((SurveyItemSeekbarViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemSeekbarViewHolder) holder).maxValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
@@ -213,36 +163,8 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemCommentViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemCommentViewHolder) holder).comment.setText(((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).getComment());
 
-                ((SurveyItemCommentViewHolder) holder).comment.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        //save state
-                        ((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).setComment(s.toString());
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                    }
-                });
-                ((SurveyItemCommentViewHolder) holder).comment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                        //hide soft keyboard
-                        ((SurveyItemCommentViewHolder) holder).comment.clearFocus();
-                        try {
-                            InputMethodManager inputMethodManager = (InputMethodManager) ((SurveyItemCommentViewHolder) holder).comment.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                            inputMethodManager.hideSoftInputFromWindow(((SurveyItemCommentViewHolder) holder).comment.getWindowToken(), 0);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                        notifyDataSetChanged();
-                        return true;
-                    }
-                });
+                ((SurveyItemCommentViewHolder) holder).comment.addTextChangedListener(((SurveyItemCommentViewHolder) holder).getOnTextChangeListener());
+                ((SurveyItemCommentViewHolder) holder).comment.setOnEditorActionListener(((SurveyItemCommentViewHolder) holder).getEditorActionListener());
 
                 ((SurveyItemCommentViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 ((SurveyItemCommentViewHolder) holder).comment.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
@@ -256,23 +178,43 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
         return surveyQuestions.size();
     }
 
-    public static class SurveyItemSpinnerViewHolder extends RecyclerView.ViewHolder {
+    public class SurveyItemSpinnerViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
         private TextView tapSelectTitle;
         private LinearLayout tapSelectContainer;
+        private View.OnClickListener onClickListener;
 
         public SurveyItemSpinnerViewHolder(View itemView) {
             super(itemView);
-
             question = (TextView) itemView.findViewById(R.id.question);
             tapSelectTitle = (TextView) itemView.findViewById(R.id.tap_select_title);
             tapSelectContainer = (LinearLayout) itemView.findViewById(R.id.tap_select_container);
         }
+
+        public View.OnClickListener getOnClickListener() {
+            onClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fragmentManager = parentFragment.getFragmentManager();
+                    DialogFragmentSpinnerItems dFragment = DialogFragmentSpinnerItems.newInstance(((SurveyItemSpinner) surveyQuestions.get(getAdapterPosition())).getItems());
+                    dFragment.setSelectionListener(new DialogFragmentSpinnerItems.DialogFragmentSpinnerItemsListener() {
+                        @Override
+                        public void onItemSelected(String spinnerItem, int spinnerItemPosition) {
+                            ((SurveyItemSpinner) surveyQuestions.get(getAdapterPosition())).setSelectedPos(spinnerItemPosition);
+                            notifyDataSetChanged();
+                        }
+                    });
+                    dFragment.show(fragmentManager, "DialogFragmentSpinnerItems");
+                }
+            };
+            return onClickListener;
+        }
     }
 
-    public static class SurveyItemStarRateViewHolder extends RecyclerView.ViewHolder {
+    public class SurveyItemStarRateViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
         private RatingBar whincRatingBar;
+        private RatingBar.OnRatingChangeListener onRatingChangeListener;
 
         public SurveyItemStarRateViewHolder(View itemView) {
             super(itemView);
@@ -280,12 +222,29 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             question = (TextView) itemView.findViewById(R.id.question);
             whincRatingBar = (RatingBar) itemView.findViewById(R.id.whinc_rating_bar);
         }
+
+        public RatingBar.OnRatingChangeListener getOnRatingChangeListener() {
+            onRatingChangeListener = new RatingBar.OnRatingChangeListener() {
+                @Override
+                public void onChange(RatingBar ratingBar, int i, final int i1) {
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((SurveyItemStarRate) surveyQuestions.get(getAdapterPosition())).setValue(i1);
+                        }
+                    });
+                }
+            };
+            return onRatingChangeListener;
+        }
     }
 
-    public static class SurveyItemYesNoViewHolder extends RecyclerView.ViewHolder {
+    public class SurveyItemYesNoViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
         private TextView yes;
         private TextView no;
+        private View.OnClickListener yesOnClickListener;
+        private View.OnClickListener noOnClickListener;
 
         public SurveyItemYesNoViewHolder(View itemView) {
             super(itemView);
@@ -294,14 +253,37 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             yes = (TextView) itemView.findViewById(R.id.yes);
             no = (TextView) itemView.findViewById(R.id.no);
         }
+
+        public View.OnClickListener getYesOnClickListener() {
+            yesOnClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((SurveyItemYesNo) surveyQuestions.get(getAdapterPosition())).setYes();
+                    notifyDataSetChanged();
+                }
+            };
+            return yesOnClickListener;
+        }
+
+        public View.OnClickListener getNoOnClickListener() {
+            noOnClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((SurveyItemYesNo) surveyQuestions.get(getAdapterPosition())).setNo();
+                    notifyDataSetChanged();
+                }
+            };
+            return noOnClickListener;
+        }
     }
 
-    public static class SurveyItemSeekbarViewHolder extends RecyclerView.ViewHolder {
+    public class SurveyItemSeekbarViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
         private TextView currentValue;
         private SeekBar seekbar;
         private TextView minValue;
         private TextView maxValue;
+        private SeekBar.OnSeekBarChangeListener seekbarChangeListener;
 
         public SurveyItemSeekbarViewHolder(View itemView) {
             super(itemView);
@@ -312,17 +294,79 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
             minValue = (TextView) itemView.findViewById(R.id.min_value);
             maxValue = (TextView) itemView.findViewById(R.id.max_value);
         }
+
+        public SeekBar.OnSeekBarChangeListener getSeekbarChangeListener() {
+            seekbarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    ((SurveyItemSeekbar) surveyQuestions.get(getAdapterPosition())).setValue(progress);
+                    currentValue.setText(String.valueOf(progress));
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
+            };
+            return seekbarChangeListener;
+        }
     }
 
-    public static class SurveyItemCommentViewHolder extends RecyclerView.ViewHolder {
+    public class SurveyItemCommentViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
         private EditText comment;
+        private TextWatcher textChangeListener;
+        private TextView.OnEditorActionListener editorActionListener;
 
         public SurveyItemCommentViewHolder(View itemView) {
             super(itemView);
 
             question = (TextView) itemView.findViewById(R.id.question);
             comment = (EditText) itemView.findViewById(R.id.comment);
+        }
+
+        public TextWatcher getOnTextChangeListener() {
+            if (textChangeListener != null) {
+                //delete listener that was set before
+                comment.removeTextChangedListener(textChangeListener);
+            }
+            textChangeListener = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    System.out.println(s.toString());
+                    ((SurveyItemComment) surveyQuestions.get(getAdapterPosition())).setComment(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            };
+            return textChangeListener;
+        }
+
+        public TextView.OnEditorActionListener getEditorActionListener() {
+            editorActionListener = new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    //hide soft keyboard
+                    comment.clearFocus();
+                    try {
+                        InputMethodManager inputMethodManager = (InputMethodManager) comment.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(comment.getWindowToken(), 0);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    return true;
+                }
+            };
+            return editorActionListener;
         }
     }
 }

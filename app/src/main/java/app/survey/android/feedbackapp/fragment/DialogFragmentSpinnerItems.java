@@ -90,7 +90,7 @@ public class DialogFragmentSpinnerItems extends DialogFragment {
     }
 
     public interface DialogFragmentSpinnerItemsListener {
-        void onItemSelected(String item, int position);
+        void onItemSelected(String spinnerItem, int spinnerItemPosition);
     }
 
 }
