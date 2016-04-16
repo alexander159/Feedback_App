@@ -19,11 +19,15 @@ import android.widget.TextView;
 
 import com.whinc.widget.ratingbar.RatingBar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.fragment.DialogFragmentSpinnerItems;
 import app.survey.android.feedbackapp.fragment.SurveyContentFragment;
+import app.survey.android.feedbackapp.model.ServerJSON.Question;
 import app.survey.android.feedbackapp.model.SurveyItem;
 import app.survey.android.feedbackapp.model.SurveyItemComment;
 import app.survey.android.feedbackapp.model.SurveyItemSeekbar;
@@ -31,14 +35,9 @@ import app.survey.android.feedbackapp.model.SurveyItemSpinner;
 import app.survey.android.feedbackapp.model.SurveyItemStarRate;
 import app.survey.android.feedbackapp.model.SurveyItemYesNo;
 import app.survey.android.feedbackapp.util.FontManager;
+import app.survey.android.feedbackapp.util.ServerApi;
 
 public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
-
-    public static final int SURVEY_ITEM_SPINNER = 0;
-    public static final int SURVEY_ITEM_STAR_RATE = 1;
-    public static final int SURVEY_ITEM_YES_NO = 2;
-    public static final int SURVEY_ITEM_SEEKBAR = 3;
-    public static final int SURVEY_ITEM_COMMENT = 4;
 
     private SurveyContentFragment parentFragment;
     private Context context;
@@ -53,15 +52,15 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if (surveyQuestions.get(position) instanceof SurveyItemSpinner) {
-            return SURVEY_ITEM_SPINNER;
+            return Question.SURVEY_ITEM_SPINNER;
         } else if (surveyQuestions.get(position) instanceof SurveyItemStarRate) {
-            return SURVEY_ITEM_STAR_RATE;
+            return Question.SURVEY_ITEM_STAR_RATE;
         } else if (surveyQuestions.get(position) instanceof SurveyItemYesNo) {
-            return SURVEY_ITEM_YES_NO;
+            return Question.SURVEY_ITEM_YES_NO;
         } else if (surveyQuestions.get(position) instanceof SurveyItemSeekbar) {
-            return SURVEY_ITEM_SEEKBAR;
+            return Question.SURVEY_ITEM_SEEKBAR;
         } else if (surveyQuestions.get(position) instanceof SurveyItemComment) {
-            return SURVEY_ITEM_COMMENT;
+            return Question.SURVEY_ITEM_COMMENT;
         } else {
             return -1;
         }
@@ -70,15 +69,15 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case SURVEY_ITEM_SPINNER:
+            case Question.SURVEY_ITEM_SPINNER:
                 return new SurveyItemSpinnerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_survey_spinner, parent, false));
-            case SURVEY_ITEM_STAR_RATE:
+            case Question.SURVEY_ITEM_STAR_RATE:
                 return new SurveyItemStarRateViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_survey_star_rate, parent, false));
-            case SURVEY_ITEM_YES_NO:
+            case Question.SURVEY_ITEM_YES_NO:
                 return new SurveyItemYesNoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_survey_yes_no, parent, false));
-            case SURVEY_ITEM_SEEKBAR:
+            case Question.SURVEY_ITEM_SEEKBAR:
                 return new SurveyItemSeekbarViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_survey_seekbar, parent, false));
-            case SURVEY_ITEM_COMMENT:
+            case Question.SURVEY_ITEM_COMMENT:
                 return new SurveyItemCommentViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_survey_comment, parent, false));
             default:
                 return null;
@@ -88,7 +87,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case SURVEY_ITEM_SPINNER: {
+            case Question.SURVEY_ITEM_SPINNER: {
                 ((SurveyItemSpinnerViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 if (((SurveyItemSpinner) surveyQuestions.get(holder.getAdapterPosition())).getSelectedPos() == SurveyItemSpinner.NOTHING_SELECTED) {
                     ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setText(context.getResources().getString(R.string.fragment_survey_content_spinner_tap_select));
@@ -104,7 +103,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSpinnerViewHolder) holder).tapSelectTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
                 break;
             }
-            case SURVEY_ITEM_STAR_RATE: {
+            case Question.SURVEY_ITEM_STAR_RATE: {
                 ((SurveyItemStarRateViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setMaxCount(SurveyItemStarRate.MAX_VALUE);
                 ((SurveyItemStarRateViewHolder) holder).whincRatingBar.setCount(((SurveyItemStarRate) surveyQuestions.get(holder.getAdapterPosition())).getValue());
@@ -114,7 +113,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemStarRateViewHolder) holder).question.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_REGULAR, context));
                 break;
             }
-            case SURVEY_ITEM_YES_NO: {
+            case Question.SURVEY_ITEM_YES_NO: {
                 ((SurveyItemYesNoViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
 
                 if (((SurveyItemYesNo) surveyQuestions.get(holder.getAdapterPosition())).isNo()) {
@@ -142,7 +141,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemYesNoViewHolder) holder).no.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
                 break;
             }
-            case SURVEY_ITEM_SEEKBAR: {
+            case Question.SURVEY_ITEM_SEEKBAR: {
                 ((SurveyItemSeekbarViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemSeekbarViewHolder) holder).maxValue.setText(String.valueOf(SurveyItemSeekbar.MAX_VALUE));
                 ((SurveyItemSeekbarViewHolder) holder).minValue.setText(String.valueOf(0));
@@ -158,7 +157,7 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
                 ((SurveyItemSeekbarViewHolder) holder).currentValue.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, context));
                 break;
             }
-            case SURVEY_ITEM_COMMENT: {
+            case Question.SURVEY_ITEM_COMMENT: {
                 ((SurveyItemCommentViewHolder) holder).question.setText(surveyQuestions.get(holder.getAdapterPosition()).getQuestion());
                 ((SurveyItemCommentViewHolder) holder).comment.setText(((SurveyItemComment) surveyQuestions.get(holder.getAdapterPosition())).getComment());
 
@@ -175,6 +174,63 @@ public class SurveyContentRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return surveyQuestions.size();
+    }
+
+    public boolean isAnyAnswersEmpty() {
+        for (SurveyItem question : surveyQuestions) {
+            if (question instanceof SurveyItemSpinner && ((SurveyItemSpinner) question).getSelectedPos() == SurveyItemSpinner.NOTHING_SELECTED) {
+                return true;
+            } else if (question instanceof SurveyItemStarRate && ((SurveyItemStarRate) question).getValue() < SurveyItemStarRate.MIN_ACCEPTED_VALUE) {
+                return true;
+            } else if (question instanceof SurveyItemYesNo && !((SurveyItemYesNo) question).isYes() && !((SurveyItemYesNo) question).isNo()) {
+                return true;
+            } else if (question instanceof SurveyItemSeekbar && ((SurveyItemSeekbar) question).getValue() < SurveyItemSeekbar.MIN_ACCEPTED_VALUE) {
+                return true;
+            } else if (question instanceof SurveyItemComment && (((SurveyItemComment) question)).getComment().trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Use this method if all field are filled,
+     * as some filed will have not acceptable default value
+     *
+     * @return String like ArrayList of JSON objects like {"question_id":"1","answer":"65"}
+     */
+    public ArrayList<JSONObject> getAnswersAsArrayList() {
+
+        ArrayList<JSONObject> answersForCategory = new ArrayList<>();
+        try {
+            for (SurveyItem question : surveyQuestions) {
+                JSONObject answerItem = new JSONObject();
+                answerItem.put(ServerApi.AnswerJSON.QUESTION_ID, question.getId());
+
+                if (question instanceof SurveyItemSpinner) {
+                    answerItem.put(ServerApi.AnswerJSON.ANSWER, ((SurveyItemSpinner) question).getItems().get(((SurveyItemSpinner) question).getSelectedPos()));
+                } else if (question instanceof SurveyItemStarRate) {
+                    answerItem.put(ServerApi.AnswerJSON.ANSWER, ((SurveyItemStarRate) question).getValue());
+                } else if (question instanceof SurveyItemYesNo) {
+                    if (((SurveyItemYesNo) question).isYes()) {
+                        answerItem.put(ServerApi.AnswerJSON.ANSWER, SurveyItemYesNo.YES);
+                    } else {
+                        answerItem.put(ServerApi.AnswerJSON.ANSWER, SurveyItemYesNo.NO);
+                    }
+                } else if (question instanceof SurveyItemSeekbar) {
+                    answerItem.put(ServerApi.AnswerJSON.ANSWER, (((SurveyItemSeekbar) question).getValue()));
+                } else if (question instanceof SurveyItemComment) {
+                    answerItem.put(ServerApi.AnswerJSON.ANSWER, (((SurveyItemComment) question)).getComment());
+                }
+
+
+                answersForCategory.add(answerItem);
+            }
+            return answersForCategory;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public class SurveyItemSpinnerViewHolder extends RecyclerView.ViewHolder {

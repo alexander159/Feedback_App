@@ -74,9 +74,9 @@ public class PatientIpnoFragment extends Fragment {
             ipno.setError(getString(R.string.error_field_required));
             ipno.requestFocus();
         } else {
-            String hospital_id;
+            String hospitalId;
             SharedPreferences sPref = getActivity().getSharedPreferences(SharedPrefs.PREFS_NAME, Context.MODE_PRIVATE);
-            if ((hospital_id = sPref.getString(SharedPrefs.HOSPITAL_ID, null)) == null) {
+            if ((hospitalId = sPref.getString(SharedPrefs.HOSPITAL_ID, null)) == null) {
                 //move to the login screen
                 PatientIpnoFragmentResponder responder = (PatientIpnoFragmentResponder) getActivity();
                 responder.onNullPreferencesPatientDetails();
@@ -86,7 +86,7 @@ public class PatientIpnoFragment extends Fragment {
             showProgressBar();
 
             String registerPatientUrl = ServerApi.LOAD_PATIENT_INFO
-                    .replace(ServerApi.ParameterValues.PATIENT_HOSPITAL_ID, hospital_id)
+                    .replace(ServerApi.ParameterValues.PATIENT_HOSPITAL_ID, hospitalId)
                     .replace(ServerApi.ParameterValues.PATIENT_IP_NO, ipno.getText().toString().trim());
 
             JsonObjectRequest loadPatientInfo = new JsonObjectRequest(registerPatientUrl, null,

@@ -8,7 +8,8 @@ public class SurveyItemSpinner extends SurveyItem {
     private ArrayList<String> items;
     private int selectedPos;
 
-    public SurveyItemSpinner(String question, ArrayList<String> items, int selectedPos) {
+    public SurveyItemSpinner(long id, String question, ArrayList<String> items, int selectedPos) {
+        this.id = id;
         this.question = question;
         this.items = items;
         this.selectedPos = selectedPos;

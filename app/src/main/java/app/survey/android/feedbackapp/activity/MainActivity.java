@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity
     private void populateRecyclerView(ArrayList<Feedback> feedbacks) {
         mainSurveys.clear();
         for (Feedback feedback : feedbacks) {
-            mainSurveys.add(new MainSurvey(R.drawable.ic_barchart, feedback.getName(), feedback.getResponses(), feedback.getDownloaded()));
+            mainSurveys.add(new MainSurvey(R.drawable.ic_barchart, feedback.getId(), feedback.getName(), feedback.getResponses(), feedback.getDownloaded()));
         }
         adapter.notifyDataSetChanged();
     }
@@ -254,9 +254,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSurveySelected(MainSurvey mainSurvey) {
+        Feedback selectedFeedback = null;
+        for (Feedback feedback : parsedFeedbacks) {
+            if (feedback.getId() == mainSurvey.getId()) {
+                selectedFeedback = feedback;
+                break;
+            }
+        }
+
         Intent patientDataIntent = new Intent(MainActivity.this, PatientDataActivity.class);
         patientDataIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        patientDataIntent.putExtra(SurveyActivity.SURVEY, mainSurvey);
+        patientDataIntent.putExtra(SurveyActivity.SURVEY, selectedFeedback);
         startActivity(patientDataIntent);
         overridePendingTransition(0, 0);
     }

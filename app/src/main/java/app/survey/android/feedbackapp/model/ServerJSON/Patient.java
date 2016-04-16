@@ -101,7 +101,7 @@ public class Patient implements Serializable {
         return beNo;
     }
 
-    public enum CameAs {Patient, Relative, Visitor}
+    public enum CameAs implements Serializable {Patient, Relative, Visitor}
 
-    public enum Sex {Male, Female, Others}
+    public enum Sex implements Serializable {Male, Female, Others}
 }

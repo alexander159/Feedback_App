@@ -13,7 +13,7 @@ import app.survey.android.feedbackapp.R;
 import app.survey.android.feedbackapp.fragment.PatientDetailsFragment;
 import app.survey.android.feedbackapp.fragment.PatientIpnoFragment;
 import app.survey.android.feedbackapp.fragment.PatientTypeFragment;
-import app.survey.android.feedbackapp.model.MainSurvey;
+import app.survey.android.feedbackapp.model.ServerJSON.Feedback;
 import app.survey.android.feedbackapp.model.ServerJSON.Patient;
 import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientIpnoFragmentResponder;
@@ -25,7 +25,7 @@ public class PatientDataActivity extends AppCompatActivity
         PatientIpnoFragmentResponder,
         PatientDetailsFragmentResponder {
 
-    public MainSurvey selectedSurvey;
+    public Feedback selectedSurvey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class PatientDataActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         changeToolbarTitle("");
 
-        selectedSurvey = (MainSurvey) getIntent().getSerializableExtra(SurveyActivity.SURVEY);
+        selectedSurvey = (Feedback) getIntent().getSerializableExtra(SurveyActivity.SURVEY);
 
         setNextActiveFragment(new PatientTypeFragment(), false);
     }

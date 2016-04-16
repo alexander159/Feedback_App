@@ -20,6 +20,7 @@ public class ErrorGuiResponder {
     public static final String PARSE_SURVEY_LIST_ERROR = "Error during parsing survey list";
     public static final String PARSE_PATIENT_INFO_ERROR = "Error during parsing patient info";
     public static final String PATIENT_IP_NO_NOT_FOUND_ERROR = "Patient with entered IP/OP No isn't exist";
+    public static final String ANSWERS_FIELDS_EMPTY_ERROR = "Please answer all questions completely";
     public static final String UNKNOWN_ERROR = "Unknown error";
 
     public static void showAlertDialog(Activity parent, String message) {

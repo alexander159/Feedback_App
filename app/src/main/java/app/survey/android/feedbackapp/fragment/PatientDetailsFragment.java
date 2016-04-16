@@ -215,6 +215,11 @@ public class PatientDetailsFragment extends Fragment {
 
         if (patient != null) {
             populateFields(patient);
+            ipno.setKeyListener(null);
+            ipno.setCursorVisible(false);
+            ipno.setClickable(false);
+            ipno.setFocusable(false);
+            ipno.setFocusableInTouchMode(false);
         }
 
         return view;

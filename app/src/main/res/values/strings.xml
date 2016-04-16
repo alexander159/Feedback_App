@@ -9,6 +9,9 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_null_preferences">Authentication token expired. Please login again.</string>
     <string name="alert_dialog_close">Close</string>
+    <string name="alert_dialog_yes">Yes</string>
+    <string name="alert_dialog_no">No</string>
+    <string name="alert_dialog_sure_exit">Are you sure you want to exit?</string>
 
     <!-- Main activity -->
     <string name="activity_main_toolbar_title">Surveys</string>

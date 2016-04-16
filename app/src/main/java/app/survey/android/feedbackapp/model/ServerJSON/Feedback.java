@@ -1,8 +1,9 @@
 package app.survey.android.feedbackapp.model.ServerJSON;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Feedback {
+public class Feedback implements Serializable{
     private long id;
     private long adminId;
     private String name;

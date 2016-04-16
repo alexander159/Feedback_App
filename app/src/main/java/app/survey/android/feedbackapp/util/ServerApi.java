@@ -29,6 +29,12 @@ public class ServerApi {
             "\"hospital_id\":\"" + ParameterValues.PATIENT_HOSPITAL_ID +
             "\"}";
 
+    public static final String SEND_ANSWERS = SERVER_HOST_URL +
+            "/myanswers.php?data={" +
+            "\"userid\":\"" + ParameterValues.ANSWER_USERID +
+            "\",\"answers\":" + ParameterValues.ANSWER_ANSWERS +
+            "}";
+
     public static class ParameterValues {
         public static final String USER_LOGIN = "user_login_value";
         public static final String USER_PASSWORD = "user_password_value";
@@ -44,6 +50,10 @@ public class ServerApi {
         public static final String PATIENT_PHONE = "phone_value";
         public static final String PATIENT_WARD_NO = "ward_no_value";
         public static final String PATIENT_BED_NO = "be_no_value";
+
+        //Answers
+        public static final String ANSWER_USERID = "userid_value";
+        public static final String ANSWER_ANSWERS = "answers_value";
     }
 
     public static class LoginJSON {
@@ -98,6 +108,12 @@ public class ServerApi {
             String FEMALE = "Female";
             String OTHERS = "Others";
         }
+    }
 
+    public static class AnswerJSON {
+        public static final String USERID = "userid";
+        public static final String ANSWERS = "answers";
+        public static final String QUESTION_ID = "question_id";
+        public static final String ANSWER = "answer";
     }
 }
