@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import app.survey.android.feedbackapp.R;
@@ -18,6 +20,8 @@ import app.survey.android.feedbackapp.model.ServerJSON.Patient;
 import app.survey.android.feedbackapp.responder.PatientDetailsFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientIpnoFragmentResponder;
 import app.survey.android.feedbackapp.responder.PatientTypeFragmentResponder;
+import app.survey.android.feedbackapp.util.FontManager;
+import app.survey.android.feedbackapp.util.RequestController;
 import app.survey.android.feedbackapp.util.SharedPrefs;
 
 public class PatientDataActivity extends AppCompatActivity
@@ -35,6 +39,14 @@ public class PatientDataActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         changeToolbarTitle("");
+
+        TextView offlineModeWarningTitle = (TextView) findViewById(R.id.offline_mode_warning_title);
+
+        if (!RequestController.getInstance().isNetworkAvailable()) {
+            //set warning about no connection
+            offlineModeWarningTitle.setTypeface(FontManager.getFont(FontManager.Fonts.TW_CENT_MT_BOLD, this));
+            offlineModeWarningTitle.setVisibility(View.VISIBLE);
+        }
 
         selectedSurvey = (Feedback) getIntent().getSerializableExtra(SurveyActivity.SURVEY);
 
