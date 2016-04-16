@@ -193,8 +193,11 @@ public class SurveyActivity extends AppCompatActivity
                             VolleyLog.d(TAG, jsonObject.toString());
                             hideProgressBar();
 
-                            Toast.makeText(activity, "Added OK", Toast.LENGTH_SHORT).show();
-                            //move to the main screen
+                            //move to he screen with survey list
+                            Intent loginIntent = new Intent(SurveyActivity.this, MainActivity.class);
+                            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(loginIntent);
+                            overridePendingTransition(0, 0);
                         }
                     },
                     new Response.ErrorListener() {
@@ -205,8 +208,11 @@ public class SurveyActivity extends AppCompatActivity
 
                             //got empty json, in our case it's successfully added answers
                             if (ErrorGuiResponder.getVolleyErrorType(error).equals(ErrorGuiResponder.PARSE_ERROR)) {
-                                Toast.makeText(activity, "Added OK", Toast.LENGTH_SHORT).show();
-                                //move to the main screen
+                                //move to he screen with survey list
+                                Intent loginIntent = new Intent(SurveyActivity.this, MainActivity.class);
+                                loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(loginIntent);
+                                overridePendingTransition(0, 0);
                             } else {
                                 //TODO SAVE TO SQLLITE
                                 ErrorGuiResponder.showAlertDialog(activity, ErrorGuiResponder.getVolleyErrorType(error));
